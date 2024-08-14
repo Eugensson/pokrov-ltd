@@ -1,120 +1,171 @@
 "use client";
 
-import toast from "react-hot-toast";
-import { useState, useEffect } from "react";
-import { ClipboardType, Loader } from "lucide-react";
+import {
+  AtSign,
+  ClipboardType,
+  PhoneCall,
+  Send,
+  UserRound,
+} from "lucide-react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { PatternFormat } from "react-number-format";
 
-import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-
-interface Inputs {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  message: string;
-}
+import { contactFormSchema } from "@/lib/schemas";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const ContactForm = () => {
-  const [inputs, setInputs] = useState<Inputs>(() => {
-    const storedData = localStorage.getItem("contactFormInputs");
-    return storedData
-      ? JSON.parse(storedData)
-      : { name: "", email: "", phoneNumber: "", message: "" };
-  });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { toast } = useToast();
 
-  useEffect(() => {
-    localStorage.setItem("contactFormInputs", JSON.stringify(inputs));
-  }, [inputs]);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setInputs((prevInputs) => ({
-      ...prevInputs,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { name, email, phoneNumber, message } = inputs;
-
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      toast.error("Поля не повинні бути порожніми");
-      return;
-    }
-
-    toast.success("Інформація успішно відправлена! Дякуємо.");
-
-    setInputs({
-      name: "",
+  const form = useForm<z.infer<typeof contactFormSchema>>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      username: "",
+      phone: "",
       email: "",
-      phoneNumber: "",
       message: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof contactFormSchema>) => {
+    const response = await fetch("/api/feedback-request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(values),
     });
+
+    const { success, error } = await response.json();
+
+    if (success) {
+      toast({
+        title: "Дякуємо! Повідомлення відправлено.",
+        description: "Менеджер найближчим часом звяжеться з Вами.",
+      });
+
+      form.reset();
+
+      form.clearErrors();
+    } else if (error) {
+      toast({
+        variant: "destructive",
+        title: "Сталася помилка.",
+        description: "Будь ласка, спробуйте пізніше.",
+      });
+    }
   };
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="flex items-center gap-3 font-semibold py-4 uppercase mx-auto">
+      <h2 className="flex items-center gap-3 font-semibold py-2 uppercase mx-auto">
         <ClipboardType />
         Форма зв&apos;язку
       </h2>
-      <form className="flex flex-col gap-2 w-full" onSubmit={handleFormSubmit}>
-        <Label className="flex flex-col gap-2">
-          Ім&apos;я
-          <Input
-            type="text"
-            name="name"
-            value={inputs.name}
-            onChange={handleChange}
-          />
-        </Label>
-
-        <Label className="flex flex-col gap-2">
-          Номер телефону
-          <Input
-            type="text"
-            name="phoneNumber"
-            value={inputs.phoneNumber}
-            onChange={handleChange}
-          />
-        </Label>
-
-        <Label className="flex flex-col gap-2">
-          Email
-          <Input
-            type="text"
-            name="email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </Label>
-
-        <Label className="flex flex-col gap-2">
-          Повідомлення:
-          <Textarea
-            name="message"
-            value={inputs.message}
-            onChange={handleChange}
-            placeholder="Залиште свій коментар..."
-          />
-        </Label>
-
-        <Button
-          type="submit"
-          size="lg"
-          disabled={isSubmitting}
-          className="max-w-xs w-full mx-auto md:mt-10"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-3 md:space-y-5 w-full flex flex-col justify-center"
         >
-          {isSubmitting && <Loader className="animate-spin" />}
-          Надіслати
-        </Button>
-      </form>
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      placeholder="Ведіть Ваше і'мя"
+                      {...field}
+                      className="pl-10"
+                    />
+                    <UserRound className="absolute top-1/2 left-2 -translate-y-1/2 text-slate-500" />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="relative">
+                    <PatternFormat
+                      format="+38 (###) ### ## ##"
+                      allowEmptyFormatting
+                      mask="_"
+                      value={field.value}
+                      onValueChange={(values) => {
+                        field.onChange(values.value);
+                      }}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-10 text-slate-500 font-semibold"
+                    />
+
+                    <PhoneCall className="absolute top-1/2 left-2 -translate-y-1/2 text-slate-500" />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      className="pl-10"
+                      placeholder="Ведіть Ваш email"
+                      {...field}
+                    />
+                    <AtSign className="absolute top-1/2 left-2 -translate-y-1/2 text-slate-500" />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    placeholder="Введіть текст повідомлення"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            className="dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white w-[200px] mx-auto flex items-center gap-2"
+          >
+            Надіслати
+            <Send />
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };
