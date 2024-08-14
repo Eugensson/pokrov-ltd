@@ -23,20 +23,3 @@ export const POST = async (request: any) => {
     return NextResponse.json({ error: err.message }, { status: err.status });
   }
 };
-
-// export const POST = async (request: any}) => {
-//   const {username, phone, email, message } = await request.json();
-
-//   try {
-//     await transporter.sendMail({
-//       ...mailOptions,
-//       subject: "Новий запит на зворотній телефонний дзвоник",
-//       html: `<p>Ім'я абонента - ${username}, контактний номер абонента - ${phone}</p>`,
-//     });
-
-//     return NextResponse.json({ success: true });
-//   } catch (err: any) {
-//     console.error(err);
-//     return NextResponse.json({ error: err.message }, { status: err.status });
-//   }
-// };
