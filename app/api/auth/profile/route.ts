@@ -6,7 +6,10 @@ import UserModel from "@/lib/models/User";
 
 export const PUT = auth(async (req) => {
   if (!req.auth) {
-    return Response.json({ message: "Not authenticated" }, { status: 401 });
+    return Response.json(
+      { message: "Будь ласка, увійдіть в систему" },
+      { status: 401 }
+    );
   }
   const { user } = req.auth;
   const { name, email, password } = await req.json();
@@ -15,7 +18,7 @@ export const PUT = auth(async (req) => {
     const dbUser = await UserModel.findById(user._id);
     if (!dbUser) {
       return Response.json(
-        { message: "User not found" },
+        { message: "Користувача не знайдено" },
         {
           status: 404,
         }
@@ -27,7 +30,7 @@ export const PUT = auth(async (req) => {
       ? await bcrypt.hash(password, 5)
       : dbUser.password;
     await dbUser.save();
-    return Response.json({ message: "User has been updated" });
+    return Response.json({ message: "Користувача оновлено" });
   } catch (err: any) {
     return Response.json(
       { message: err.message },

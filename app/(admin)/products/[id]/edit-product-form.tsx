@@ -103,25 +103,23 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
     required?: boolean;
     pattern?: ValidationRule<RegExp>;
   }) => (
-    <div className="flex flex-col gap-2">
-      <Label className="flex flex-col gap-2">
-        <span className="flex items-center gap-2">
-          {name}
-          {errors[id]?.message && (
-            <div className="text-xs text-red-500 dark:text-red-300">
-              {errors[id]?.message}
-            </div>
-          )}
-        </span>
-        <Input
-          type="text"
-          {...register(id, {
-            required: required && " - обов'язкове поле",
-            pattern,
-          })}
-        />
-      </Label>
-    </div>
+    <Label className="flex flex-col gap-2">
+      <span className="flex items-center gap-2">
+        {name}
+        {errors[id]?.message && (
+          <div className="text-xs text-red-500 dark:text-red-300">
+            {errors[id]?.message}
+          </div>
+        )}
+      </span>
+      <Input
+        type="text"
+        {...register(id, {
+          required: required && " - обов'язкове поле",
+          pattern,
+        })}
+      />
+    </Label>
   );
 
   const uploadHandler = async (e: any) => {

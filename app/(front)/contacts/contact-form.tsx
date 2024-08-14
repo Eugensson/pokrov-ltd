@@ -77,7 +77,7 @@ export const ContactForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 md:space-y-5 w-full flex flex-col justify-center"
+          className="space-y-3 md:space-y-4 w-full flex flex-col justify-center"
         >
           <FormField
             control={form.control}
