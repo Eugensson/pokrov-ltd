@@ -1,12 +1,19 @@
 "use client";
 
+import {
+  Truck,
+  Banknote,
+  ShoppingCart,
+  Loader,
+  HandCoins,
+  FilePenLine,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Truck, Banknote, ShoppingCart, Loader, HandCoins } from "lucide-react";
 
 import {
   Table,
@@ -100,8 +107,11 @@ export const PlaceOrderForm = () => {
             <p>
               {shippingAddress.postalCode}, {shippingAddress.country}
             </p>
-            <Button size="lg" variant="ghost" className="max-w-40">
-              <Link href="/shipping">Редагувати</Link>
+            <Button size="lg" className="max-w-40">
+              <Link href="/shipping" className="flex items-center gap-3">
+                <FilePenLine />
+                Редагувати
+              </Link>
             </Button>
           </div>
           <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-5">
@@ -110,8 +120,11 @@ export const PlaceOrderForm = () => {
               Спосіб оплати
             </h2>
             <p>{paymentMethod}</p>
-            <Button size="lg" variant="ghost" className="max-w-40">
-              <Link href="/payment">Редагувати</Link>
+            <Button size="lg" className="max-w-40">
+              <Link href="/payment" className="flex items-center gap-3">
+                <FilePenLine />
+                Редагувати
+              </Link>
             </Button>
           </div>
           <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-5">
@@ -167,8 +180,11 @@ export const PlaceOrderForm = () => {
                 </TableRow>
               </TableFooter>
             </Table>
-            <Button size="lg" variant="ghost" className="max-w-40">
-              <Link href="/cart">Редагувати</Link>
+            <Button size="lg" className="max-w-40">
+              <Link href="/cart" className="flex items-center gap-3">
+                <FilePenLine />
+                Редагувати
+              </Link>
             </Button>
           </div>
         </div>

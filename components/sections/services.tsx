@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { servicesImages } from "@/constants";
+import { SquareArrowUpLeft } from "lucide-react";
 
 interface Props {
   className?: string;
@@ -49,9 +50,10 @@ export const Services: React.FC<Props> = ({ className }) => {
             <li key={index}>
               <Link
                 href={href}
-                className="text-primary xl:text-xl hover:underline"
+                className="flex items-center gap-3 text-primary xl:text-xl hover:underline"
                 onMouseEnter={() => handleMouseEnter(index)}
               >
+                <SquareArrowUpLeft className="text-slate-500" />
                 {label}
               </Link>
             </li>

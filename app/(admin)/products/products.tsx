@@ -164,13 +164,13 @@ export const Products = () => {
             </TabsTrigger>
           </TabsList>
           <Button
-            variant="outline"
+            size="lg"
             className="h-10 gap-3"
             disabled={isCreating}
             onClick={() => createProduct()}
           >
             {isCreating ? <Loader className="animate-spin" /> : <FilePlus2 />}
-            Створити
+            Додати
           </Button>
         </div>
         <Card>

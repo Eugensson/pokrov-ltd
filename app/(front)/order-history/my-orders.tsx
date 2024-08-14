@@ -16,51 +16,7 @@ import {
 import { Order } from "@/lib/models/Order";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
-
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
+import { Loader, RefreshCcw, TriangleAlert } from "lucide-react";
 
 export default function MyOrders() {
   const [mounted, setMounted] = useState(false);
@@ -74,14 +30,35 @@ export default function MyOrders() {
 
   if (!mounted) return <></>;
 
-  if (error) return "Сталася помилка. Будь ласка, спробуй ще раз.";
+  if (error)
+    return (
+      <div className="flex flex-col justify-center gap-10 items-center min-h-[420px]">
+        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
+          <TriangleAlert size={40} />
+          Сталася помилка. Будь ласка, спробуйте ще раз.
+        </h2>
+        <Button type="button" size="lg">
+          <Link href="/order-history" className="flex items-center gap-3">
+            <RefreshCcw />
+            Оновити
+          </Link>
+        </Button>
+      </div>
+    );
 
-  if (!orders) return "Завантаження...";
+  if (!orders)
+    return (
+      <div className="flex justify-center items-center min-h-[420px]">
+        <Loader size={40} className="animate-spin" />
+      </div>
+    );
 
   return (
     <div className="overflow-x-auto">
       <Table>
-        <TableCaption>Список Ваших останніх замовлень.</TableCaption>
+        <TableCaption className="mb-auto">
+          Список Ваших останніх замовлень.
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="flex-1">ID</TableHead>
@@ -93,30 +70,38 @@ export default function MyOrders() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orders.map((order: Order) => (
-            <TableRow key={order._id}>
-              <TableCell>... {order._id.substring(14, 24)}</TableCell>
-              <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
-              <TableCell>{order.totalPrice}</TableCell>
-              <TableCell>
-                {order.isPaid && order.paidAt
-                  ? `${order.paidAt.substring(0, 10)}`
-                  : "Оплата не виконана"}
-              </TableCell>
-              <TableCell>
-                {order.isDelivered && order.deliveredAt
-                  ? `${formatDate(order.deliveredAt)}`
-                  : "Не доставлено"}
-              </TableCell>
-              <TableCell className="text-right">
-                <Button variant="link" className="pr-0">
-                  <Link href={`/order/${order._id}`} passHref>
-                    Подробиці
-                  </Link>
-                </Button>
+          {orders.length > 0 ? (
+            orders.map((order: Order) => (
+              <TableRow key={order._id}>
+                <TableCell>... {order._id.substring(14, 24)}</TableCell>
+                <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
+                <TableCell>{order.totalPrice}</TableCell>
+                <TableCell>
+                  {order.isPaid && order.paidAt
+                    ? `${order.paidAt.substring(0, 10)}`
+                    : "Оплата не виконана"}
+                </TableCell>
+                <TableCell>
+                  {order.isDelivered && order.deliveredAt
+                    ? `${formatDate(order.deliveredAt)}`
+                    : "Не доставлено"}
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button variant="link" className="pr-0">
+                    <Link href={`/order/${order._id}`} passHref>
+                      Подробиці
+                    </Link>
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={6} className="h-[350px] text-center">
+                У Вашому списку замовлень немає.
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

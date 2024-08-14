@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { SquareArrowUpLeft } from "lucide-react";
 
 export default function Services() {
   return (
@@ -44,22 +45,38 @@ export default function Services() {
         </h2>
         <ul className="flex flex-col gap-2">
           <li>
-            <Link href="/services/domes" className="hover:underline">
+            <Link
+              href="/services/domes"
+              className="flex items-center gap-3 hover:underline"
+            >
+              <SquareArrowUpLeft className="text-slate-500" />
               Проектування та виготовлення куполів
             </Link>
           </li>
           <li>
-            <Link href="/services/cross" className="hover:underline">
+            <Link
+              href="/services/cross"
+              className="flex items-center gap-3 hover:underline"
+            >
+              <SquareArrowUpLeft className="text-slate-500" />
               Проектування та виготовлення накупольних хрестів
             </Link>
           </li>
           <li>
-            <Link href="/services/sheets" className="hover:underline">
+            <Link
+              href="/services/sheets"
+              className="flex items-center gap-3 hover:underline"
+            >
+              <SquareArrowUpLeft className="text-slate-500" />
               Реалізація аркушів із нержавіючої сталі
             </Link>
           </li>
           <li>
-            <Link href="/services/decor" className="hover:underline">
+            <Link
+              href="/services/decor"
+              className="flex items-center gap-3 hover:underline"
+            >
+              <SquareArrowUpLeft className="text-slate-500" />
               Декоративні елементи з нержавіючої сталі
             </Link>
           </li>
