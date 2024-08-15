@@ -51,8 +51,22 @@ export default function OrderDetails({
       });
       const data = await res.json();
       res.ok
-        ? toast.success("Order delivered successfully")
+        ? toast.success("Замовлення доставлено")
         : toast.error(data.message);
+    }
+  );
+
+  const { trigger: paidOrder, isMutating: isPaiding } = useSWRMutation(
+    `/api/orders/${orderId}`,
+    async (url) => {
+      const res = await fetch(`/api/admin/orders/${orderId}/paid`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      res.ok ? toast.success("Замовлення оплачено") : toast.error(data.message);
     }
   );
 
@@ -145,7 +159,7 @@ export default function OrderDetails({
             {isPaid ? (
               <p className="flex items-center gap-2 text-green-500">
                 <CircleCheck size={24} />
-                Товар оплачено {paidAt}
+                Товар сплачено {formatDate(paidAt)}
               </p>
             ) : (
               <p className="flex items-center gap-2 text-red-500">
@@ -251,17 +265,30 @@ export default function OrderDetails({
               />
             </PayPalScriptProvider>
           )}
-          {session?.user.isAdmin && (
-            <Button
-              size="lg"
-              className="w-full"
-              onClick={() => deliverOrder()}
-              disabled={isDelivering}
-            >
-              {isDelivering && <Loader className="animate-spin" />}
-              Позначити &quot;Доставлено&quot;
-            </Button>
-          )}
+          <div className="flex flex-col gap-4">
+            {session?.user.isAdmin && (
+              <Button
+                size="lg"
+                className="w-full"
+                onClick={() => paidOrder()}
+                disabled={isPaiding}
+              >
+                {isPaiding && <Loader className="animate-spin" />}
+                Позначити &quot;Оплачено&quot;
+              </Button>
+            )}
+            {session?.user.isAdmin && (
+              <Button
+                size="lg"
+                className="w-full"
+                onClick={() => deliverOrder()}
+                disabled={isDelivering}
+              >
+                {isDelivering && <Loader className="animate-spin" />}
+                Позначити &quot;Доставлено&quot;
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import useSWR from "swr";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Loader, RefreshCcw, TriangleAlert, History } from "lucide-react";
 
 import {
   Table,
@@ -13,10 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatDate } from "@/lib/utils";
 import { Order } from "@/lib/models/Order";
 import { Button } from "@/components/ui/button";
-import { formatDate } from "@/lib/utils";
-import { Loader, RefreshCcw, TriangleAlert } from "lucide-react";
 
 export default function MyOrders() {
   const [mounted, setMounted] = useState(false);
@@ -55,6 +55,10 @@ export default function MyOrders() {
 
   return (
     <div className="overflow-x-auto">
+      <h1 className="flex items-center gap-3 text-2xl my-6">
+        <History size={28} />
+        Історія замовлень
+      </h1>
       <Table>
         <TableCaption className="mb-auto">
           Список Ваших останніх замовлень.
@@ -78,7 +82,7 @@ export default function MyOrders() {
                 <TableCell>{order.totalPrice}</TableCell>
                 <TableCell>
                   {order.isPaid && order.paidAt
-                    ? `${order.paidAt.substring(0, 10)}`
+                    ? `${formatDate(order.paidAt)}`
                     : "Оплата не виконана"}
                 </TableCell>
                 <TableCell>

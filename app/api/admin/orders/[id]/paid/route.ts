@@ -17,15 +17,8 @@ export const PUT = auth(async (...args: any) => {
 
     const order = await OrderModel.findById(params.id);
     if (order) {
-      if (!order.isPaid)
-        return Response.json(
-          { message: "Замовлення не знайдено" },
-          {
-            status: 400,
-          }
-        );
-      order.isDelivered = true;
-      order.deliveredAt = Date.now();
+      order.isPaid = true;
+      order.paidAt = Date.now();
       const updatedOrder = await order.save();
       return Response.json(updatedOrder);
     } else {

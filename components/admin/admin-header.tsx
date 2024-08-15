@@ -13,10 +13,12 @@ export const AdminHeader = () => {
   const items = breadcrumbItems[pathname] || breadcrumbItems["/settings"];
 
   return (
-    <header className="flex justify-between items-center p-2 md:px-4 shadow-md dark:shadow-slate-500/30">
-      <AdminMobileMenu />
-      <Breadcrumbs items={items} />
-      <MenuButton />
+    <header className="shadow-md dark:shadow-slate-500/30">
+      <div className="container flex justify-between items-center p-2 md:px-4">
+        <AdminMobileMenu />
+        <Breadcrumbs items={items} />
+        <MenuButton />
+      </div>
     </header>
   );
 };

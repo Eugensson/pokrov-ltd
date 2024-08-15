@@ -9,9 +9,9 @@ export default function AdminLayout({
   return (
     <main className="flex min-h-screen w-full flex-col bg-muted/40">
       <AdminAside />
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+      <div className="flex flex-col sm:gap-4">
         <AdminHeader />
-        {children}
+        <div className="container sm:py-4 sm:pl-14">{children}</div>
       </div>
     </main>
   );

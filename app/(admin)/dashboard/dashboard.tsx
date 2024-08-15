@@ -63,8 +63,10 @@ export const options = {
 };
 
 export const Dashboard = () => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: summary, error } = useSWR(`/api/admin/orders/summary`, fetcher);
+  const { data: summary, error } = useSWR(
+    `/api/admin/orders/summary`,
+    (url: string) => fetch(url).then((res) => res.json())
+  );
 
   if (error)
     return (
@@ -165,7 +167,7 @@ export const Dashboard = () => {
               <HandCoins size={28} />
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex justify-center text-4xl font-bold text-yellow-500">
+          <CardContent className="flex justify-center text-4xl font-bold text-blue-500">
             &#8372; {formatNumber(summary.ordersPrice)}
           </CardContent>
           <CardFooter className="flex justify-center">
@@ -183,7 +185,7 @@ export const Dashboard = () => {
               <ShoppingCart size={28} />
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex justify-center text-4xl font-bold text-yellow-500">
+          <CardContent className="flex justify-center text-4xl font-bold text-blue-500">
             {summary.ordersCount}
           </CardContent>
           <CardFooter className="flex justify-center">
@@ -201,7 +203,7 @@ export const Dashboard = () => {
               <PackageOpen size={28} />
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex justify-center text-4xl font-bold text-yellow-500">
+          <CardContent className="flex justify-center text-4xl font-bold text-blue-500">
             {summary.productsCount}
           </CardContent>
           <CardFooter className="flex justify-center">
@@ -219,7 +221,7 @@ export const Dashboard = () => {
               <UsersRound size={28} />
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex justify-center text-4xl font-bold text-yellow-500">
+          <CardContent className="flex justify-center text-4xl font-bold text-blue-500">
             {summary.usersCount}
           </CardContent>
           <CardFooter className="flex justify-center">
@@ -231,7 +233,7 @@ export const Dashboard = () => {
           </CardFooter>
         </Card>
       </div>
-      <Card>
+      <Card className="shadow-md dark:shadow-slate-500/30">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про продажі
@@ -242,7 +244,7 @@ export const Dashboard = () => {
           <Line data={salesData} />
         </CardContent>
       </Card>
-      <Card>
+      <Card className="shadow-md dark:shadow-slate-500/30">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про замовлення
@@ -253,7 +255,7 @@ export const Dashboard = () => {
           <Line data={ordersData} />
         </CardContent>
       </Card>
-      <Card>
+      <Card className="shadow-md dark:shadow-slate-500/30">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про товари
@@ -264,7 +266,7 @@ export const Dashboard = () => {
           <Doughnut data={productsData} />
         </CardContent>
       </Card>
-      <Card>
+      <Card className="shadow-md dark:shadow-slate-500/30">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про користувачів

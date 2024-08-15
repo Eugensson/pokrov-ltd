@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/card";
 import { paymentMethods } from "@/constants";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useCartService from "@/lib/hooks/useCartStore";
 import { CheckoutSteps } from "@/components/checkout-steps";
-import { Input } from "@/components/ui/input";
 
 export const PaymentForm = () => {
   const router = useRouter();
