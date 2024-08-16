@@ -11,12 +11,14 @@ interface Props {
 export const Products: React.FC<Props> = ({ featuredProducts, className }) => {
   return (
     <section
-      className={cn("py-4 md:py-8 bg-primary-foreground rounded-md", className)}
+      className={cn(
+        "p-2 md:p-4 xl:p-8 bg-primary-foreground rounded-md",
+        className
+      )}
     >
       <div className="text-center">
-        <h2 className="text-3xl font-bold sm:text-4xl">Наша продукція</h2>
-
-        <p className="mt-4 text-primary xl:text-xl">
+        <h2>Наша продукція</h2>
+        <p className="mt-1 md:mt-2 lg:mt-4 xl:mt-8">
           TOB &quot;НВФ &quot;Покров&quot; спеціалізується на напиленні
           нітрид-титану на різноманіьні вироби. Таке покриття допоможе зберегти
           продукцію в найкращому вигляді, забезпечуючи стійкість до корозії та

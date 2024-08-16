@@ -1,17 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 
-import { cn } from "@/lib/utils";
-
-export const Logo = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+export const Logo = () => {
   return (
-    <Link href="/" className={cn("xl:text-lg font-semibold", className)}>
-      {children}
+    <Link href="/">
+      <Image
+        src="/logo.svg"
+        alt="Логотип ТОВ НВФ Покров"
+        width={96}
+        height={96}
+        className="w-12 h-12 xl:w-24 xl:h-24"
+      />
     </Link>
   );
 };

@@ -93,7 +93,7 @@ export const InfiniteMovingCards: React.FC<Props> = ({
       >
         {items.map((item, idx) => (
           <li
-            className="w-[300px] h-[400px] overflow-hidden max-w-full relative rounded-md flex-shrink-0 "
+            className="w-[300px] h-[220px] md:h-[250px] lg:h-[300px] xl:h-[350] overflow-hidden max-w-full relative rounded-md flex-shrink-0"
             key={idx}
           >
             <Image
@@ -101,7 +101,7 @@ export const InfiniteMovingCards: React.FC<Props> = ({
               width={300}
               height={400}
               alt="Зразки виготовленої продукції"
-              className="object-cover w-full h-[350px] rounded-md"
+              className="object-cover w-full h-[220px] md:h-[250px] lg:h-[300px] xl:h-[350] rounded-md"
             />
           </li>
         ))}

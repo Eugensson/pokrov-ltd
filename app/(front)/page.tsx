@@ -17,16 +17,16 @@ export default async function Home() {
   return (
     <>
       <Slider images={bannerImages} className="cursor-pointer" />
-      <Separator className="my-6" />
+      <Separator className="hidden md:block md:my-2 lg:my-3 xl:my-4" />
       <Preference />
-      <Separator className="my-6" />
+      <Separator className="my-1 md:my-2 lg:my-3 xl:my-4" />
       <Services />
-      <Separator className="my-6" />
+      <Separator className="my-1 md:my-2 lg:my-3 xl:my-4" />
       <Products
         featuredProducts={latestSerializedProducts}
         latestProducts={featuredSerializedProducts}
       />
-      <Separator className="my-6" />
+      <Separator className="my-1 md:my-2 lg:my-3 xl:my-4" />
       <Assurance />
     </>
   );

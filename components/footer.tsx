@@ -9,18 +9,14 @@ export const Footer: React.FC<Props> = ({ className }) => {
   return (
     <footer
       className={cn(
-        "container flex flex-col-reverse md:flex-row justify-center md:justify-between items-center gap-2 py-2 border-t-2",
+        "flex flex-col-reverse md:flex-row justify-center md:justify-between items-center gap-2 border-t-2 p-2 md:px-4 xl:px-8",
         className
       )}
     >
-      <div className="flex flex-col text-xs items-center md:items-start gap-1">
-        <span className="text-xs md:text-sm">ТОВ НВФ Покров</span>
-        <span className="text-xs md:text-sm text-muted-foreground">
-          Науково-виробнича фірма
-        </span>
-        <span className="text-xs lg:text-sm text-muted-foreground">
-          &copy; 2024. Усі права захищено. Покров,ТОВ
-        </span>
+      <div className="block text-muted-foreground text-center md:text-left text-[8px] md:text-xs">
+        <p className="font-bold">ТОВ НВФ Покров</p>
+        <p>Науково-виробнича фірма</p>
+        <p>&copy; 2024. Усі права захищено.</p>
       </div>
       <Social className="text-muted-foreground" />
     </footer>

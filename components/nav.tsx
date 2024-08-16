@@ -15,13 +15,13 @@ export const Nav: React.FC<Props> = ({ className }) => {
 
   return (
     <nav className={cn("hidden md:block", className)}>
-      <ul className="flex items-center gap-1 text-xs lg:text-lg font-medium">
+      <ul className="flex items-center gap-1">
         {navLinks.map(({ label, href }) => (
           <li key={href}>
             <Link
               href={href}
               className={cn(
-                "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
+                "flex items-center gap-4 px-2.5 text-xs lg:text-base xl:text-xl font-medium text-muted-foreground hover:text-foreground",
                 `${pathname === href && "text-foreground"}`
               )}
             >
