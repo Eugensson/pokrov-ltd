@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Register() {
   return (
-    <div className="relative flex w-full max-w-[968px] rounded-md border shadow-md dark:shadow-slate-500/30 overflow-hidden py-16">
+    <div className="relative flex w-full max-w-[968px] rounded-md border shadow-md dark:shadow-slate-500/30 overflow-hidden py-16 md:py-0">
       <Button variant="ghost" className="absolute right-4 top-4 ">
         <Link href="/login">Увійти</Link>
       </Button>
