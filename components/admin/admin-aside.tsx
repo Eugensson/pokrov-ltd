@@ -1,14 +1,13 @@
 "use client";
 
 import {
-  Images,
-  LayoutDashboard,
-  LineChart,
-  Package,
-  Package2,
-  Settings,
-  ShoppingCart,
+  House,
   Users2,
+  Images,
+  Package,
+  ShoppingCart,
+  LayoutDashboard,
+  LogOut,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,11 +27,11 @@ export const AdminAside = () => {
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
         <Link
-          href="#"
-          className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+          href="/"
+          className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary/50 text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
         >
-          <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-          <span className="sr-only">Acme Inc</span>
+          <House className="h-4 w-4 transition-all group-hover:scale-110" />
+          <span className="sr-only">ТОВ НВФ Покров</span>
         </Link>
         <TooltipProvider>
           <Tooltip>
@@ -131,20 +130,17 @@ export const AdminAside = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/settings"
+                href="/"
                 className={cn(
                   "flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8",
-                  `${
-                    pathname === "/settings" &&
-                    "bg-accent text-accent-foreground"
-                  }`
+                  `${pathname === "/" && "bg-accent text-accent-foreground"}`
                 )}
               >
-                <Settings className="h-5 w-5" />
-                <span className="sr-only">Налаштування</span>
+                <LogOut className="h-5 w-5" />
+                <span className="sr-only">Повертутися на головну</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Налаштування</TooltipContent>
+            <TooltipContent side="right">На сайт</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>
