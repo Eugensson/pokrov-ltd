@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
+import { ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { RegisterForm } from "@/app/(auth)/register/register-form";
-import { ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -13,48 +13,41 @@ export const metadata: Metadata = {
 
 export default function Register() {
   return (
-    <div className="relative grid md:grid-cols-2 h-screen flex-col items-center justify-center lg:max-w-none lg:px-0">
-      <Button
-        variant="ghost"
-        className="absolute right-4 top-4 md:right-8 md:top-8"
-      >
+    <div className="relative flex w-full max-w-[968px] rounded-md border shadow-md dark:shadow-slate-500/30 overflow-hidden py-16">
+      <Button variant="ghost" className="absolute right-4 top-4 ">
         <Link href="/login">Увійти</Link>
       </Button>
-      <div className="relative hidden h-full flex-col text-white dark:border-r md:flex bg-primary">
-        <Image
-          src="/auth.jpg"
-          alt="The company's products"
-          width={1200}
-          height={1200}
-          priority
-          className="object-cover w-full h-full"
-        />
-      </div>
-      <div className="lg:p-8">
-        <div className="mx-auto px-4 flex w-full flex-col justify-center space-y-8 sm:w-[350px]">
-          <h1 className="flex items-center gap-2 mx-auto md:text-xl font-semibold tracking-tight">
-            <ShieldCheck size={26} />
-            Реєстрація
-          </h1>
-          <RegisterForm />
-          <p className="text-center text-xs text-muted-foreground">
-            Натискаючи продовжити, Ви погоджуєтеся з нашими{" "}
-            <Link
-              href="/terms"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Умовами користання ресурсом
-            </Link>{" "}
-            та{" "}
-            <Link
-              href="/privacy"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Політикою конфіденційності
-            </Link>
-            .
-          </p>
-        </div>
+      <Image
+        src="/auth.jpg"
+        alt="The company's products"
+        width={600}
+        height={600}
+        priority
+        className="hidden md:block object-contain w-1/2 h-1/2"
+      />
+      <div className="m-auto px-4 w-full max-w-[350px] flex flex-col justify-center space-y-8">
+        <h1 className="flex items-center gap-2 mx-auto md:text-xl font-semibold tracking-tight">
+          <ShieldCheck size={26} />
+          Реєстрація
+        </h1>
+        <RegisterForm />
+        <p className="text-center text-[10px] text-muted-foreground">
+          Натискаючи продовжити, Ви погоджуєтеся з нашими{" "}
+          <Link
+            href="/terms"
+            className="underline underline-offset-4 hover:text-primary"
+          >
+            Умовами користання ресурсом
+          </Link>{" "}
+          та{" "}
+          <Link
+            href="/privacy"
+            className="underline underline-offset-4 hover:text-primary"
+          >
+            Політикою конфіденційності
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );

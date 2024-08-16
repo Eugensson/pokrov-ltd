@@ -67,6 +67,8 @@ export const Orders = () => {
       </div>
     );
 
+  console.log(orders);
+
   return (
     <section>
       <Card className="grid auto-rows-max lg:col-span-2">

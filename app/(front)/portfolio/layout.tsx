@@ -7,7 +7,9 @@ export const metadata: Metadata = {
 
 const PoryfolioLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <section className="flex flex-col py-1 md:py-2 xl:py-5">{children}</section>
+    <section className="m-auto flex flex-col py-1 md:py-2 xl:py-5">
+      {children}
+    </section>
   );
 };
 

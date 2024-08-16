@@ -26,10 +26,7 @@ const UserSchema = new Schema(
     isAdmin: { type: Boolean, required: true, default: false },
     image: { type: String },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+  { timestamps: true, versionKey: false }
 );
 
 const UserModel = models?.User || model("User", UserSchema);

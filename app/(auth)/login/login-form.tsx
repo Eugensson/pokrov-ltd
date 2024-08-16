@@ -60,8 +60,9 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
               <Input
                 id="email"
                 type="text"
+                autoComplete="off"
                 disabled={isSubmitting}
-                className="w-full max-w-sm px-10"
+                className="w-full px-10"
                 placeholder="john.doe@example.com"
                 {...register("email", {
                   required: "*Обов'язкове до заповлення поле",
@@ -87,7 +88,8 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
               <Input
                 type={isVisible ? "text" : "password"}
                 disabled={isSubmitting}
-                className="w-full max-w-sm px-10"
+                autoComplete="off"
+                className="w-full px-10"
                 placeholder="********"
                 {...register("password", {
                   required: "*Обов'язкове до заповлення поле",
@@ -134,7 +136,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap2">
+      <div className="flex items-center gap-4">
         <Button
           variant="outline"
           type="button"

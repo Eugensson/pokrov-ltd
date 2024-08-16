@@ -95,12 +95,13 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
             <div className="relative">
               <Input
                 type="text"
+                autoComplete="off"
                 disabled={isSubmitting}
                 placeholder="John Doe"
                 {...register("name", {
                   required: "*Обов'язкове до заповлення поле",
                 })}
-                className="w-full max-w-sm px-10"
+                className="w-full px-10"
               />
               <User
                 size={18}
@@ -118,8 +119,9 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
               <Input
                 id="email"
                 type="text"
+                autoComplete="off"
                 disabled={isSubmitting}
-                className="w-full max-w-sm px-10"
+                className="w-full px-10"
                 placeholder="john.doe@example.com"
                 {...register("email", {
                   required: "*Обов'язкове до заповлення поле",
@@ -145,7 +147,8 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
               <Input
                 type={isVisible ? "text" : "password"}
                 disabled={isSubmitting}
-                className="w-full max-w-sm px-10"
+                autoComplete="off"
+                className="w-full px-10"
                 placeholder="********"
                 {...register("password", {
                   required: "*Обов'язкове до заповлення поле",
@@ -180,7 +183,8 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
               <Input
                 type={isVisible ? "text" : "password"}
                 disabled={isSubmitting}
-                className="w-full max-w-sm px-10"
+                autoComplete="off"
+                className="w-full px-10"
                 placeholder="********"
                 {...register("confirmPassword", {
                   required: "*Обов'язкове до заповлення поле",
@@ -217,7 +221,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap2">
+      <div className="flex items-center gap-4">
         <Button
           variant="outline"
           type="button"
