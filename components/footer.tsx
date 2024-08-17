@@ -9,7 +9,7 @@ export const Footer: React.FC<Props> = ({ className }) => {
   return (
     <footer
       className={cn(
-        "flex flex-col-reverse md:flex-row justify-center md:justify-between items-center gap-2 border-t-2 p-2 md:px-4 xl:px-8",
+        "flex flex-col-reverse md:flex-row justify-center md:justify-between items-center gap-2 border-t-2 p-1",
         className
       )}
     >

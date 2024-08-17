@@ -21,12 +21,7 @@ export const Services: React.FC<Props> = ({ className }) => {
   };
 
   return (
-    <section
-      className={cn(
-        "p-2 md:p-4 xl:p-8 bg-primary-foreground rounded-md grid lg:grid-cols-5",
-        className
-      )}
-    >
+    <section className={cn("p-1 grid lg:grid-cols-5", className)}>
       <div className="hidden lg:block relative rounded-md overflow-hidden sm:h-80 lg:order-last lg:h-full lg:col-span-2">
         <Image
           alt={currentImage.title}
@@ -36,7 +31,7 @@ export const Services: React.FC<Props> = ({ className }) => {
           className="absolute inset-0 h-full w-full object-cover"
         />
       </div>
-      <div className="flex flex-col gap-2 bg-primary-foreground rounded-l-md lg:col-span-3 lg:p-5 xl:p-10">
+      <div className="flex flex-col gap-4 lg:col-span-3 lg:p-5 xl:p-10">
         <h2 className="pt-0 text-center lg:hidden">Наші послуги</h2>
         <p>
           ТОВ &quot;НВФ &quot;Покров&quot; спеціалізується на нанесенні нітриду

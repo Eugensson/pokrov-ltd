@@ -11,7 +11,7 @@ export default function ServicesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="m-auto grid lg:grid-cols-5 bg-primary-foreground overflow-hidden rounded-md p-2 md:p-4 xl:p-8">
+    <section className="m-auto grid lg:grid-cols-5 overflow-hidden rounded-md p-1">
       {children}
     </section>
   );

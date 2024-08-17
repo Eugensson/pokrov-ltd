@@ -6,7 +6,7 @@ import { CartButton } from "@/components/cart-button";
 
 export const Header = () => {
   return (
-    <header className="w-full flex justify-between items-center shadow-md dark:shadow-zinc-500/30 p-2 md:px-4 xl:px-8">
+    <header className="w-full flex justify-between items-center shadow-md dark:shadow-zinc-500/30 p-1">
       <Logo />
       <Nav />
       <ul className="flex items-center gap-4">

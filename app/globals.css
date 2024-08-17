@@ -96,7 +96,7 @@ h3 {
   @apply text-base md:text-lg lg:text-xl xl:text-2xl py-1 md:py-2 lg:py-4;
 }
 h4 {
-  @apply text-sm md:text-base xl:text-lg py-1 md:py-2 lg:py-4;
+  @apply text-sm md:text-sm xl:text-base py-1 md:py-2 lg:py-4;
 }
 a,
 p {

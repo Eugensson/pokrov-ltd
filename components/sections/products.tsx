@@ -10,12 +10,7 @@ interface Props {
 
 export const Products: React.FC<Props> = ({ featuredProducts, className }) => {
   return (
-    <section
-      className={cn(
-        "p-2 md:p-4 xl:p-8 bg-primary-foreground rounded-md",
-        className
-      )}
-    >
+    <section className={cn("p-1", className)}>
       <div className="text-center">
         <h2 className="pt-0">Наша продукція</h2>
         <p>

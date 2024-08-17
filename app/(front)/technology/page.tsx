@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 export default function Technology() {
   return (
     <div className="w-full grid md:grid-cols-2 gap-2 lg:gap-4 xl:gap-8">
-      <div className="flex flex-col gap-2 p-2 md:p-4 rounded-md bg-primary-foreground">
+      <div className="flex flex-col gap-2 p-1">
         <h1 className="text-center">Технологія</h1>
         <p>
           Технологія вакуумного напилення (фізичне відкладення парової фази,
@@ -39,7 +39,7 @@ export default function Technology() {
           className="object-cover w-[400px] h-auto"
         />
       </div>
-      <div className="md:col-span-2 flex flex-col gap-2 p-2 md:p-4 rounded-md bg-primary-foreground">
+      <div className="md:col-span-2 flex flex-col gap-2 p-1">
         <h3 className="text-center pt-0">Переваги технології:</h3>
         <p>
           <span className="font-semibold mr-2">Висока якість покриття:</span>
