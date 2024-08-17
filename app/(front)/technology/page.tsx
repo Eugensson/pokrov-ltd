@@ -1,13 +1,12 @@
-import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+
+import { Separator } from "@/components/ui/separator";
 
 export default function Technology() {
   return (
-    <div className="w-full grid md:grid-cols-2 gap-2 lg:gap-4 xl:gap-8 text-[10px] md:text-xs lg:text-base xl:text-lg">
+    <div className="w-full grid md:grid-cols-2 gap-2 lg:gap-4 xl:gap-8">
       <div className="flex flex-col gap-2 p-2 md:p-4 rounded-md bg-primary-foreground">
-        <h1 className="lg:text-xl xl:text-2xl font-bold uppercase text-center">
-          Технологія
-        </h1>
+        <h1 className="text-center">Технологія</h1>
         <p>
           Технологія вакуумного напилення (фізичне відкладення парової фази,
           PVD) - процес, за якого тонкі шари матеріалу відкладаються на поверхні
@@ -30,20 +29,18 @@ export default function Technology() {
           висока чистота та точність розміщення матеріалу на поверхні.
         </p>
       </div>
-      <div className="relative hidden md:block bg-primary-foreground">
+      <div className="relative hidden md:block">
         <Image
           priority
           src="/tech.jpg"
-          alt="Technology process"
+          alt="Виробниче устаткування"
           fill
           sizes="(max-width: 768px) 100vw, 400px"
           className="object-cover w-[400px] h-auto"
         />
       </div>
       <div className="md:col-span-2 flex flex-col gap-2 p-2 md:p-4 rounded-md bg-primary-foreground">
-        <h2 className="xl:text-xl text-center font-semibold">
-          Переваги технології:
-        </h2>
+        <h3 className="text-center pt-0">Переваги технології:</h3>
         <p>
           <span className="font-semibold mr-2">Висока якість покриття:</span>
           вакуумне напилення забезпечує однорідне, безпомилкове покриття, яке
@@ -82,36 +79,46 @@ export default function Technology() {
           в багатьох галузях, включаючи медицину, електроніку, виробництво
           напівпровідників, промисловість та інші.
         </p>
-        <Separator className="my-5" />
-        <h2 className="xl:text-xl text-center font-semibold">
-          Етапи технологічного процесу:
-        </h2>
+        <Separator className="hidden md:block md:my-2 lg:my-3 xl:my-4" />
+        <h3 className="text-center pt-0">Етапи технологічного процесу:</h3>
         <ol className="flex flex-col gap-2">
           <li>
-            <span className="mr-2">1.</span> Підготовка матеріалу або виробу,
-            який буде оброблятись, за допомогою ретельної механічної та
-            електрохімічної обробки.
+            <p>
+              <span className="mr-2">1.</span> Підготовка матеріалу або виробу,
+              який буде оброблятись, за допомогою ретельної механічної та
+              електрохімічної обробки.
+            </p>
           </li>
           <li>
-            <span className="mr-2">2.</span> Знегазування вакуумом безпосередньо
-            в установці.
+            <p>
+              <span className="mr-2">2.</span> Знегазування вакуумом
+              безпосередньо в установці.
+            </p>
           </li>
           <li>
-            <span className="mr-2">3.</span> Іонне очищення поверхні для
-            підвищення якості покриття.
+            <p>
+              <span className="mr-2">3.</span> Іонне очищення поверхні для
+              підвищення якості покриття.
+            </p>
           </li>
           <li>
-            <span className="mr-2">4.</span> Розпилення покриття нітриду титану
-            на поверхню виробу.
+            <p>
+              <span className="mr-2">4.</span> Розпилення покриття нітриду
+              титану на поверхню виробу.
+            </p>
           </li>
           <li>
-            <span className="mr-2">5.</span> Формування нітрид-титанової плівки
-            на поверхні виробу.
+            <p>
+              <span className="mr-2">5.</span> Формування нітрид-титанової
+              плівки на поверхні виробу.
+            </p>
           </li>
           <li>
-            <span className="mr-2">6.</span> Термічна обробка плівки при
-            температурі, що дещо перевищує температуру розпилення, для
-            закріплення ефекту покриття.
+            <p>
+              <span className="mr-2">6.</span> Термічна обробка плівки при
+              температурі, що дещо перевищує температуру розпилення, для
+              закріплення ефекту покриття.
+            </p>
           </li>
         </ol>
       </div>

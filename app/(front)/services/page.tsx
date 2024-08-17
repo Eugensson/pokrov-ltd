@@ -6,7 +6,7 @@ export default function Services() {
   return (
     <>
       <div className="lg:col-span-2">
-        <div className="relative overflow-hidden sm:h-80 lg:order-last lg:h-full  rounded-l-md ">
+        <div className="relative overflow-hidden sm:h-40 lg:order-last lg:h-full">
           <Image
             alt="Світлина Храму"
             width={1920}
@@ -16,7 +16,7 @@ export default function Services() {
           />
         </div>
       </div>
-      <div className="p-5 lg:col-span-3 space-y-1 md:space-y-2 lg:space-y-4">
+      <div className="lg:col-span-3 lg:pl-4 xl:pl-8">
         <h3 className="text-center">Хто ми?</h3>
         <p>
           TOB &quot;HBФ &quot;Покров&quot; спеціалізується на напиленні
@@ -39,8 +39,8 @@ export default function Services() {
           Ми хочемо, щоб ви були задовленні вибором саме нашої компанії, та мали
           бажання розповісти про це всім.
         </p>
-        <h3 className="text-center">Послуги, що надаються компанією</h3>
-        <ul className="flex flex-col gap-2">
+        <h3 className="text-center">Наші послуги</h3>
+        <ul className="flex flex-col gap-1">
           <li>
             <Link
               href="/services/domes"

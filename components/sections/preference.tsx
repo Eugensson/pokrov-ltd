@@ -12,7 +12,7 @@ interface Props {
 
 export const Preference: React.FC<Props> = ({ className }) => {
   return (
-    <section className={cn("hidden md:block p-2 md:p-4 xl:p-8", className)}>
+    <section className={cn("hidden md:block p-1", className)}>
       <h2 className="hidden">Переваги нашої продукції</h2>
       <ul className="w-full md:grid grid-cols-2 xl:grid-cols-4 gap-4">
         <li className="bg-primary-foreground rounded-md p-4 flex flex-col place-items-center justify-center gap-4">

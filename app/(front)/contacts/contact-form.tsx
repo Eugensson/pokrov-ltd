@@ -70,10 +70,10 @@ export const ContactForm = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="flex items-center gap-3 font-semibold py-2 uppercase mx-auto">
+      <h3 className="flex items-center gap-4 pt-0">
         <ClipboardType />
         Форма зв&apos;язку
-      </h2>
+      </h3>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -159,7 +159,8 @@ export const ContactForm = () => {
           />
           <Button
             type="submit"
-            className="dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-white w-[200px] mx-auto flex items-center gap-2"
+            size="lg"
+            className="w-[200px] mx-auto flex items-center gap-2"
           >
             Надіслати
             <Send />

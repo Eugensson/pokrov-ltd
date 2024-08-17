@@ -10,9 +10,7 @@ export default async function Portfolio() {
 
   return (
     <div>
-      <h1 className="lg:text-xl xl:text-2xl font-bold uppercase text-center md:my-8">
-        Галерея робіт
-      </h1>
+      <h1 className="text-center pt-0 mb-4">Галерея робіт</h1>
       <ul className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
         {frames.map((frame) => (
           <li key={frame}>
@@ -35,12 +33,12 @@ export default async function Portfolio() {
                     className="rounded-lg object-cover w-full h-60"
                   />
                 </CardContent>
-                <CardHeader className="my-4">
+                <CardHeader>
                   <CardTitle>
                     {frame === "cross"
                       ? "Хрести накупольні"
                       : frame === "sheets"
-                      ? "Аркуші із нанесеним покриттям"
+                      ? "Аркуші із покриттям"
                       : frame === "decor"
                       ? "Декоративні елементи"
                       : "Куполи церковні"}

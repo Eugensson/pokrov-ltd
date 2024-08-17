@@ -37,7 +37,7 @@ export const Services: React.FC<Props> = ({ className }) => {
         />
       </div>
       <div className="flex flex-col gap-2 bg-primary-foreground rounded-l-md lg:col-span-3 lg:p-5 xl:p-10">
-        <h2 className="text-center lg:hidden">Наші послуги</h2>
+        <h2 className="pt-0 text-center lg:hidden">Наші послуги</h2>
         <p>
           ТОВ &quot;НВФ &quot;Покров&quot; спеціалізується на нанесенні нітриду
           титану на листову нержавіючу сталь та декоративні елементи, такі як

@@ -17,8 +17,8 @@ export const Products: React.FC<Props> = ({ featuredProducts, className }) => {
       )}
     >
       <div className="text-center">
-        <h2>Наша продукція</h2>
-        <p className="mt-1 md:mt-2 lg:mt-4 xl:mt-8">
+        <h2 className="pt-0">Наша продукція</h2>
+        <p>
           TOB &quot;НВФ &quot;Покров&quot; спеціалізується на напиленні
           нітрид-титану на різноманіьні вироби. Таке покриття допоможе зберегти
           продукцію в найкращому вигляді, забезпечуючи стійкість до корозії та
@@ -28,7 +28,7 @@ export const Products: React.FC<Props> = ({ featuredProducts, className }) => {
       </div>
       <InfiniteMovingCards
         items={featuredProducts}
-        className="mt-8"
+        className="mt-4"
         speed="normal"
       />
     </section>
