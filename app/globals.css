@@ -81,7 +81,8 @@
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   @apply font-bold uppercase;
 }
 
@@ -99,5 +100,5 @@ h4 {
 }
 a,
 p {
-  @apply text-[8px] md:text-xs lg:text-sm;
+  @apply text-xs md:text-sm lg:text-base xl:text-lg;
 }

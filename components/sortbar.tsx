@@ -12,6 +12,7 @@ import {
   SelectSeparator,
   SelectItem,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 interface Props {
   sortOrders: string[];
@@ -21,6 +22,7 @@ interface Props {
   rating: string;
   sort: string;
   page: string;
+  className?: string;
 }
 
 export const Sortbar: React.FC<Props> = ({
@@ -31,6 +33,7 @@ export const Sortbar: React.FC<Props> = ({
   rating,
   sort,
   page,
+  className,
 }) => {
   const router = useRouter();
 
@@ -46,7 +49,7 @@ export const Sortbar: React.FC<Props> = ({
 
   return (
     <Select onValueChange={handleSelect}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className={cn("w-[180px]", className)}>
         <SelectValue placeholder="Сортувати за:" />
       </SelectTrigger>
       <SelectContent>

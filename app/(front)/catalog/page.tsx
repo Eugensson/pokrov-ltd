@@ -106,16 +106,17 @@ export default async function Catalog({
   });
 
   return (
-    <div className="grid md:grid-cols-9 gap-2">
-      <aside className="space-y-4 md:col-span-2 px-1 py-2 border-r-2">
+    <div className="grid md:grid-cols-9 gap-2 p-1 md:p-2 xl:p-4">
+      <aside className="space-y-2 md:col-span-2">
         <Searchbar />
+        <h4>Фільтрувати за:</h4>
         <Accordion type="multiple" className="w-full">
           <AccordionItem value="category">
-            <AccordionTrigger>Фільтр за категорією</AccordionTrigger>
+            <AccordionTrigger>категорією</AccordionTrigger>
             <AccordionContent>
-              <ScrollArea className="h-[200px] w-full pr-4">
+              <ScrollArea className="h-[100px] md:h-[200px] w-full pr-4">
                 <Link
-                  className={`block py-1 hover:text-yellow-500 ${
+                  className={`block py-1 hover:text-zinc-500 ${
                     "all" === category && "font-semibold"
                   }`}
                   href={getFilterUrl({ c: "all" })}
@@ -125,7 +126,7 @@ export default async function Catalog({
                 {categories.map((c: string) => (
                   <Link
                     key={c}
-                    className={`block py-1 hover:text-yellow-500 ${
+                    className={`block py-1 hover:text-zinc-500 ${
                       c === category && "font-semibold"
                     }`}
                     href={getFilterUrl({ c })}
@@ -137,22 +138,22 @@ export default async function Catalog({
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="price">
-            <AccordionTrigger>Фільтр за ціною, &#8372;</AccordionTrigger>
+            <AccordionTrigger>ціною, &#8372;</AccordionTrigger>
             <AccordionContent>
-              <ScrollArea className="h-[200px] w-full pr-4">
+              <ScrollArea className="h-[100px] md:h-[200px] w-full pr-4">
                 <Link
-                  className={`block py-1 hover:text-yellow-500 ${
+                  className={`block py-1 hover:text-zinc-500 ${
                     "all" === price && "font-semibold"
                   }`}
                   href={getFilterUrl({ p: "all" })}
                 >
-                  Будь-яка ціна
+                  будь-яка
                 </Link>
                 {sortPricesList.map((p) => (
                   <Link
                     key={p.value}
                     href={getFilterUrl({ p: p.value })}
-                    className={`block py-1 hover:text-yellow-500 ${
+                    className={`block py-1 hover:text-zinc-500 ${
                       p.value === price && "font-semibold"
                     }`}
                   >
@@ -163,22 +164,22 @@ export default async function Catalog({
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="review">
-            <AccordionTrigger>Фільтр за відгуками клієнтів</AccordionTrigger>
+            <AccordionTrigger>рейтингом</AccordionTrigger>
             <AccordionContent>
-              <ScrollArea className="h-[200px] w-full pr-4">
+              <ScrollArea className="h-[100px] md:h-[200px] w-full pr-4">
                 <Link
                   href={getFilterUrl({ r: "all" })}
-                  className={`block py-1 hover:text-yellow-500 ${
+                  className={`block py-1 hover:text-zinc-500 ${
                     "all" === rating && "font-semibold"
                   }`}
                 >
-                  Всі
+                  всі
                 </Link>
                 {ratingsList.map((r) => (
                   <Link
                     key={r}
                     href={getFilterUrl({ r: `${r}` })}
-                    className={`block py-1 hover:text-yellow-500 ${
+                    className={`block py-1 hover:text-zinc-500 ${
                       `${r}` === rating && "font-semibold"
                     }`}
                   >
@@ -191,63 +192,48 @@ export default async function Catalog({
         </Accordion>
       </aside>
       <div className="md:col-span-7 w-full h-full flex flex-col p-2">
-        <div className="flex justify-between items-center mb-5">
-          <div className="flex items-center">
+        <div className="flex flex-col xl:flex-row justify-between xl:items-center mb-5">
+          <div className="flex flex-col gap-1 xl:flex-row xl:items-center">
             <span className="font-semibold">
               Товарів: {products.length === 0 ? "0" : countProducts}
             </span>
-            {q !== "all" && q !== "" && " : " + q}
-            {category !== "all" && " : " + category}
-            {price !== "all" && " : Ціна: " + price}
-            {rating !== "all" && " : Рейтинг: " + rating}
-            &nbsp;
+            <span>{q !== "all" && q !== "" && " : " + q}</span>
+            <span>{category !== "all" && " : " + category}</span>
+            <span>{price !== "all" && " : Ціна: " + price}</span>
+            <span>{rating !== "all" && " : Рейтинг: " + rating}</span>
             {(q !== "all" && q !== "") ||
             category !== "all" ||
             rating !== "all" ||
             price !== "all" ? (
-              <Button size="icon" variant="link">
+              <Button variant="link" className="max-w-[80px] mb-2 xl:mb-0">
                 <Link href="/catalog">
-                  <SquareX />
+                  <p className="xl:hidden">Скинути</p>
+                  <SquareX className="hidden xl:block" />
                 </Link>
               </Button>
             ) : null}
           </div>
-          <div className="flex items-center gap-4 ml-auto">
-            <Sortbar
-              sortOrders={sortOrdersList}
-              q={q}
-              category={category}
-              price={price}
-              rating={rating}
-              sort={sort}
-              page={page}
-            />
-            <Button
-              variant="outline"
-              size="icon"
-              className="overflow-hidden rounded-md text-slate-500"
-            >
-              <List />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="overflow-hidden rounded-md text-slate-500"
-            >
-              <LayoutGrid />
-            </Button>
-          </div>
+          <Sortbar
+            sortOrders={sortOrdersList}
+            q={q}
+            category={category}
+            price={price}
+            rating={rating}
+            sort={sort}
+            page={page}
+            className="xl:ml-auto"
+          />
         </div>
         {products.length === 0 ? (
           <p className="flex flex-col gap-3 justify-center items-center h-full font-semibold text-center">
             За даними критеріями пошуку не знайдено товарів.
-            <span className="text-gray-500">
+            <span className="text-zinc-500">
               Будь ласка, задайте інші критерії пошуку.
             </span>
           </p>
         ) : (
           <>
-            <ul className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-3">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3 gap-2">
               {products.map((product) => (
                 <li key={product.slug}>
                   <ProductCard product={product} />

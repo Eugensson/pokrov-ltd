@@ -13,39 +13,39 @@ export const Rating: React.FC<Props> = ({ value, caption, className }) => {
     <span className={cn("flex gap-3", className)}>
       <span className="flex gap-1">
         {value >= 1 ? (
-          <IoStar size={20} className="text-yellow-500" />
+          <IoStar size={16} className="text-blue-500" />
         ) : value >= 0.5 ? (
-          <IoStarHalfOutline size={20} className="text-yellow-500" />
+          <IoStarHalfOutline size={16} className="text-blue-500" />
         ) : (
-          <IoStarOutline size={20} className="text-yellow-500" />
+          <IoStarOutline size={16} className="text-blue-500" />
         )}
         {value >= 2 ? (
-          <IoStar size={20} className="text-yellow-500" />
+          <IoStar size={16} className="text-blue-500" />
         ) : value >= 1.5 ? (
-          <IoStarHalfOutline size={20} className="text-yellow-500" />
+          <IoStarHalfOutline size={16} className="text-blue-500" />
         ) : (
-          <IoStarOutline size={20} className="text-yellow-500" />
+          <IoStarOutline size={16} className="text-blue-500" />
         )}
         {value >= 3 ? (
-          <IoStar size={20} className="text-yellow-500" />
+          <IoStar size={16} className="text-blue-500" />
         ) : value >= 2.5 ? (
-          <IoStarHalfOutline size={20} className="text-yellow-500" />
+          <IoStarHalfOutline size={16} className="text-blue-500" />
         ) : (
-          <IoStarOutline size={20} className="text-yellow-500" />
+          <IoStarOutline size={16} className="text-blue-500" />
         )}
         {value >= 4 ? (
-          <IoStar size={20} className="text-yellow-500" />
+          <IoStar size={16} className="text-blue-500" />
         ) : value >= 3.5 ? (
-          <IoStarHalfOutline size={20} className="text-yellow-500" />
+          <IoStarHalfOutline size={16} className="text-blue-500" />
         ) : (
-          <IoStarOutline size={20} className="text-yellow-500" />
+          <IoStarOutline size={16} className="text-blue-500" />
         )}
         {value >= 5 ? (
-          <IoStar size={20} className="text-yellow-500" />
+          <IoStar size={16} className="text-blue-500" />
         ) : value >= 4.5 ? (
-          <IoStarHalfOutline size={20} className="text-yellow-500" />
+          <IoStarHalfOutline size={16} className="text-blue-500" />
         ) : (
-          <IoStarOutline size={20} className="text-yellow-500" />
+          <IoStarOutline size={16} className="text-blue-500" />
         )}
       </span>
       {caption && <span>{caption}</span>}
