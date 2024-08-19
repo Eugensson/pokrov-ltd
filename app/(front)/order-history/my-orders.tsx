@@ -2,6 +2,7 @@
 
 import useSWR from "swr";
 import Link from "next/link";
+import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import {
@@ -15,7 +16,6 @@ import {
 import { formatDate } from "@/lib/utils";
 import { Order } from "@/lib/models/Order";
 import { Error } from "@/components/error";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 
 export default function MyOrders() {
@@ -32,7 +32,8 @@ export default function MyOrders() {
 
   if (error) return <Error href="/order-history" />;
 
-  if (!orders) return <Loading />;
+  if (!orders)
+    return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   return (
     <>
@@ -76,9 +77,7 @@ export default function MyOrders() {
           </TableBody>
         </Table>
       ) : (
-        <div className="flex items-center justify-center h-full">
-          <p>Історія замовлень порожня.</p>
-        </div>
+        <p className="mt-40 text-center">Історія замовлень порожня.</p>
       )}
     </>
   );

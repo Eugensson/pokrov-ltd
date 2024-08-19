@@ -13,10 +13,9 @@ const config = {
     container: {
       center: true,
       padding: {
-        sm: "1px",
-        md: "4px",
-        lg: "8px",
-        xl: "14px",
+        md: "2px",
+        lg: "4px",
+        xl: "8px",
       },
       screens: {
         sm: "320px",

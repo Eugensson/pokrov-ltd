@@ -20,7 +20,6 @@ import { User } from "@/lib/models/User";
 import { Error } from "@/components/error";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
@@ -81,7 +80,7 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
 
   if (error) return <Error href={`/customers/${userId}`} />;
 
-  if (!user) return <Loading />;
+  if (!user) return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   const FormInput = ({
     id,
@@ -97,46 +96,48 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
     type: string;
   }) => (
     <div>
-      <Label htmlFor={id}>{name}</Label>
-      <Input
-        type={type}
-        id={id}
-        {...register(id, {
-          required: required && `${name} is required`,
-          pattern,
-        })}
-        className="input input-bordered w-full max-w-md"
-      />
-      {errors[id]?.message && (
-        <span className="text-red-500">{errors[id]?.message}</span>
-      )}
+      <Label>
+        <span>
+          {name}
+          {errors[id]?.message && (
+            <span className="text-xs text-red-500">{errors[id]?.message}</span>
+          )}
+        </span>
+        <Input
+          type={type}
+          id={id}
+          {...register(id, {
+            required: required && " - обов'язкове поле",
+            pattern,
+          })}
+          className="w-full max-w-md"
+        />
+      </Label>
     </div>
   );
 
   return (
     <div className="flex justify-center items-center h-[650px]">
-      <Card className="w-full max-w-lg p-10">
+      <Card className="w-full max-w-lg md:p-10">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-2xl">
+          <CardTitle className="flex items-center gap-3 mx-auto">
             <UserRoundPen size={28} />
-            Редагування даних
+            Редагувати
           </CardTitle>
-          <CardDescription>
-            Панель керування даними користувача з ID: {formatId(userId)}.
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(formSubmit)} className="space-y-8">
-            <FormInput name="Name" id="name" type="text" required />
+            <FormInput name="Ім'я" id="name" type="text" required />
             <FormInput name="Email" id="email" type="email" required />
-            <div className="md:flex my-3 items-center gap-3">
-              <Label htmlFor="isAdmin">Адміністратор</Label>
+
+            <Label className="flex items-center gap-3">
+              Адміністратор
               <Switch
                 id="isAdmin"
                 checked={!!watch("isAdmin")}
                 onCheckedChange={(checked) => setValue("isAdmin", checked)}
               />
-            </div>
+            </Label>
 
             <div className="mt-10 flex items-center gap-10">
               <Button
@@ -150,12 +151,12 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
                 ) : (
                   <UserCheck />
                 )}
-                Оновити
+                <span className="hidden md:block">Оновити</span>
               </Button>
               <Button type="button" size="lg" className="flex-1">
                 <Link href="/customers" className="flex items-center gap-3">
                   <UserX />
-                  Відхилити
+                  <span className="hidden md:block">Відхилити</span>
                 </Link>
               </Button>
             </div>

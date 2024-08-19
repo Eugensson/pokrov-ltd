@@ -41,7 +41,6 @@ import {
 import { Frame } from "@/lib/models/Frame";
 import { Error } from "@/components/error";
 import { Badge } from "@/components/ui/badge";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -112,13 +111,14 @@ export const Frames = () => {
 
   if (error) return <Error href="/gallery" />;
 
-  if (!frames) return <Loading />;
+  if (!frames)
+    return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   return (
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="Всі категорії">
-        <div className="flex items-center justify-between p-1">
-          <TabsList className="rounded-md">
+        <div className="w-full flex items-center justify-between p-1">
+          <TabsList className="rounded-md hidden xl:block">
             <TabsTrigger
               name="Всі категорії"
               value="Всі категорії"
@@ -167,16 +167,6 @@ export const Frames = () => {
           </Button>
         </div>
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-2xl">
-              <Images size={28} />
-              Галерея світлин
-            </CardTitle>
-            <CardDescription>
-              Панель керування світлинами галереї (додавання, редагування та
-              видалення).
-            </CardDescription>
-          </CardHeader>
           <TabsContent value={value}>
             <CardContent>
               <ScrollArea className="h-[380px] w-full">

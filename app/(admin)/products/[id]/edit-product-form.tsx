@@ -15,27 +15,19 @@ import { useEffect, useState } from "react";
 import { ValidationRule, useForm } from "react-hook-form";
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { formatId } from "@/lib/utils";
 import { Error } from "@/components/error";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Loading } from "@/components/loading";
 import { Product } from "@/lib/models/Product";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const EditProductForm = ({ productId }: { productId: string }) => {
   const router = useRouter();
@@ -159,27 +151,25 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
 
   if (error) return <Error href={`/products/${productId}`} />;
 
-  if (!product) return <Loading />;
+  if (!product)
+    return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   return (
-    <div className="flex justify-center items-center h-[580px]">
-      <Card className="w-full max-w-5xl p-6">
+    <div className="flex justify-center items-center md:ml-16 md:h-[580px]">
+      <Card className="w-full max-w-5xl md:p-6">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-2xl">
+          <CardTitle className="flex items-center gap-3 mx-auto">
             <PackageOpen size={28} />
-            Редагувати товар
+            Редагувати
           </CardTitle>
-          <CardDescription>
-            Редагування інформації про товар з ID: {formatId(productId)}.
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <form
             onSubmit={handleSubmit(formSubmit)}
-            className="space-y-4 grid md:grid-cols-2 gap-10"
+            className="space-y-2 md:space-y-4 grid md:grid-cols-2 gap-4 xl:gap-10"
           >
-            <div className="space-y-4">
-              <Label className="flex justify-between items-center">
+            <div className="space-y-2 md:space-y-4">
+              <Label className="flex justify-between items-center gap-1">
                 Категорія
                 <Select
                   disabled={isUpdating}
@@ -210,13 +200,9 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
               <FormInput name="Найменування" id="name" required />
               <FormInput name="Слаг" id="slug" required />
               <FormInput name="Бренд виробника" id="brand" required />
-              <FormInput
-                name="Доступна кількість, од."
-                id="countInStock"
-                required
-              />
+              <FormInput name="Кількість" id="countInStock" required />
             </div>
-            <div className="space-y-4">
+            <div className="space-y-2 md:space-y-4">
               <FormInput name="Ціна за одиницю, ₴" id="price" required />
               <FormInput name="Зображення" id="image" required />
               <Label className="flex justify-between items-center gap-2">
@@ -229,24 +215,23 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
               </Label>
               <FormInput name="Опис продукту" id="description" required />
 
-              <div className="mt-20 flex items-center gap-10">
+              <div className="mt-20 flex items-center gap-4">
                 <Button
                   type="submit"
                   disabled={isUpdating}
-                  size="lg"
-                  className="flex-1 gap-3"
+                  className="flex-1 gap-2"
                 >
                   {isUpdating ? (
                     <Loader className="animate-spin" />
                   ) : (
                     <RotateCw />
                   )}
-                  Оновити
+                  <span className="hidden md:block">Оновити</span>
                 </Button>
-                <Button type="button" size="lg" className="flex-1">
-                  <Link href="/products" className="flex items-center gap-3">
+                <Button type="button" className="flex-1">
+                  <Link href="/products" className="flex items-center gap-2">
                     <Ban />
-                    Відхилити
+                    <span className="hidden md:block">Відхилити</span>
                   </Link>
                 </Button>
               </div>

@@ -17,6 +17,7 @@ import {
   ContactRound,
   HandCoins,
   ListOrdered,
+  Loader,
   PackageOpen,
   ShoppingCart,
   SquareChartGantt,
@@ -36,7 +37,6 @@ import {
 } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils";
 import { Error } from "@/components/error";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 
 ChartJS.register(
@@ -69,7 +69,8 @@ export const Dashboard = () => {
 
   if (error) return <Error href="/dashboard" />;
 
-  if (!summary) return <Loading />;
+  if (!summary)
+    return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   const salesData = {
     labels: summary.salesData.map((x: { _id: string }) => x._id),
@@ -146,9 +147,9 @@ export const Dashboard = () => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 xl:gap-8 max-w-[1440px] mx-auto p-1">
       <div className="md:col-span-2 grid md:grid-cols-2 xl:grid-cols-4 xl:col-span-4 gap-2 xl:gap-8">
-        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[292px] md:max-w-full">
           <CardHeader>
-            <CardTitle className="flex justify-between items-center text-xl uppercase">
+            <CardTitle className="flex justify-between items-center">
               Продажі
               <HandCoins size={28} />
             </CardTitle>
@@ -164,9 +165,9 @@ export const Dashboard = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[292px] md:max-w-full">
           <CardHeader>
-            <CardTitle className="flex justify-between items-center text-xl uppercase">
+            <CardTitle className="flex justify-between items-center">
               Замовлення
               <ShoppingCart size={28} />
             </CardTitle>
@@ -182,9 +183,9 @@ export const Dashboard = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[292px] md:max-w-full">
           <CardHeader>
-            <CardTitle className="flex justify-between items-center text-xl uppercase">
+            <CardTitle className="flex justify-between items-center">
               Товари
               <PackageOpen size={28} />
             </CardTitle>
@@ -200,9 +201,9 @@ export const Dashboard = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[292px] md:max-w-full">
           <CardHeader>
-            <CardTitle className="flex justify-between items-center text-xl uppercase">
+            <CardTitle className="flex justify-between items-center">
               Користувачі
               <UsersRound size={28} />
             </CardTitle>
@@ -219,10 +220,10 @@ export const Dashboard = () => {
           </CardFooter>
         </Card>
       </div>
-      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[292px] md:max-w-full">
         <CardHeader>
-          <CardTitle className="flex justify-between items-center text-xl uppercase">
-            Звіт про продажі
+          <CardTitle className="flex justify-between items-center">
+            Продажі
             <SquarePercent size={30} />
           </CardTitle>
         </CardHeader>
@@ -230,10 +231,10 @@ export const Dashboard = () => {
           <Line data={salesData} />
         </CardContent>
       </Card>
-      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[292px] md:max-w-full">
         <CardHeader>
-          <CardTitle className="flex justify-between items-center text-xl uppercase">
-            Звіт про замовлення
+          <CardTitle className="flex justify-between items-center">
+            Замовлення
             <ListOrdered size={30} />
           </CardTitle>
         </CardHeader>
@@ -241,10 +242,10 @@ export const Dashboard = () => {
           <Line data={ordersData} />
         </CardContent>
       </Card>
-      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[292px] md:max-w-full">
         <CardHeader>
-          <CardTitle className="flex justify-between items-center text-xl uppercase">
-            Звіт про товари
+          <CardTitle className="flex justify-between items-center">
+            Товари
             <SquareChartGantt size={30} />
           </CardTitle>
         </CardHeader>
@@ -252,10 +253,10 @@ export const Dashboard = () => {
           <Doughnut data={productsData} />
         </CardContent>
       </Card>
-      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[292px] md:max-w-full">
         <CardHeader>
-          <CardTitle className="flex justify-between items-center text-xl uppercase">
-            Звіт про користувачів
+          <CardTitle className="flex justify-between items-center">
+            Користувачі
             <ContactRound size={30} />
           </CardTitle>
         </CardHeader>

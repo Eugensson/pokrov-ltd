@@ -2,9 +2,9 @@
 
 import {
   CircleUserRound,
+  Loader,
   MoreHorizontal,
   UserPen,
-  UsersRound,
   UserX,
 } from "lucide-react";
 import useSWR from "swr";
@@ -12,13 +12,6 @@ import Link from "next/link";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -39,9 +32,9 @@ import { formatId } from "@/lib/utils";
 import { User } from "@/lib/models/User";
 import { Error } from "@/components/error";
 import { Badge } from "@/components/ui/badge";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const Customers = () => {
@@ -75,19 +68,11 @@ export const Customers = () => {
 
   if (error) return <Error href="/customers" />;
 
-  if (!users) return <Loading />;
+  if (!users)
+    return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3 text-2xl">
-          <UsersRound size={28} />
-          Користувачі
-        </CardTitle>
-        <CardDescription>
-          Панель керування користувачами системою (редагування та видалення).
-        </CardDescription>
-      </CardHeader>
       <CardContent>
         <ScrollArea className="h-[380px] w-full">
           <Table>

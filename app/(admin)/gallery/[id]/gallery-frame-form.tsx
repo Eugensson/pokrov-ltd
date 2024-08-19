@@ -6,7 +6,7 @@ import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ValidationRule, useForm } from "react-hook-form";
-import { ImageMinus, ImagePlus, Loader, UserRoundPen } from "lucide-react";
+import { BookImage, ImageMinus, ImagePlus, Loader } from "lucide-react";
 
 import {
   Select,
@@ -19,7 +19,6 @@ import { Frame } from "@/lib/models/Frame";
 import { Error } from "@/components/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -102,7 +101,8 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
 
   if (error) return <Error href={`/gallery/${frameId}`} />;
 
-  if (!frame) return <Loading />;
+  if (!frame)
+    return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   const FormInput = ({
     id,
@@ -168,11 +168,11 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
 
   return (
     <div className="flex justify-center items-center h-[580px]">
-      <Card className="w-full max-w-lg p-10">
+      <Card className="w-full max-w-lg md:p-10">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
-            <UserRoundPen size={28} />
-            Редагування світлини
+            <BookImage size={28} />
+            Редагувати
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -224,12 +224,12 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
                 ) : (
                   <ImagePlus />
                 )}
-                Оновити
+                <span className="hidden md:block">Оновити</span>
               </Button>
               <Button type="button" size="lg" className="flex-1">
                 <Link href="/gallery" className="flex items-center gap-3">
                   <ImageMinus />
-                  Відхилити
+                  <span className="hidden md:block">Відхилити</span>
                 </Link>
               </Button>
             </div>
