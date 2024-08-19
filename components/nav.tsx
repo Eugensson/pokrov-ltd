@@ -25,7 +25,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
                 `${pathname === href && "text-foreground"}`
               )}
             >
-              <h4>{label}</h4>
+              <p>{label}</p>
             </Link>
           </li>
         ))}

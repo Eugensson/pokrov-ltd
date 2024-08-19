@@ -2,7 +2,7 @@ import OrderDetails from "./order-details";
 
 export function generateMetadata({ params }: { params: { id: string } }) {
   return {
-    title: `Order ${params.id}`,
+    title: `Замовлення ${params.id}`,
   };
 }
 

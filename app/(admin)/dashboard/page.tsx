@@ -1,7 +1,7 @@
 import { Dashboard } from "./dashboard";
 
 export const metadata = {
-  title: "Dashboard Analitycs",
+  title: "Панель адміністратора || ТОВ Покров",
 };
 
 export default function AdminDashboard() {

@@ -2,7 +2,7 @@ import { EditProductForm } from "./edit-product-form";
 
 export function generateMetadata({ params }: { params: { id: string } }) {
   return {
-    title: `Редагування продукту ${params.id}`,
+    title: `Редагування товару ${params.id}`,
   };
 }
 

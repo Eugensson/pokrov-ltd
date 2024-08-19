@@ -10,7 +10,7 @@ interface Props {
 
 export const Social: React.FC<Props> = ({ className }) => {
   return (
-    <ul className={cn("flex items-center gap-4", className)}>
+    <ul className={cn("flex items-center gap-8", className)}>
       {socialLinks.map(({ label, href, icon }) => {
         const Icon = icon;
         return (
@@ -20,8 +20,13 @@ export const Social: React.FC<Props> = ({ className }) => {
               size="icon"
               className="overflow-hidden rounded-md"
             >
-              <Link href={href} target="_blank" rel="noopener noreferrer">
-                <Icon size={24} aria-label={label} />
+              <Link
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2"
+              >
+                <Icon size={28} aria-label={label} />
               </Link>
             </Button>
           </li>

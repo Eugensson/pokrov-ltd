@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
 type Inputs = {
@@ -117,9 +117,9 @@ export const ProfileForm = () => {
   return (
     <Card className="max-w-md m-auto">
       <CardHeader>
-        <CardTitle className="flex items-center gap-3 text-2xl">
+        <CardTitle className="flex items-center gap-3 text-2xl mx-auto">
           <UserRoundCog size={28} />
-          Редагування профілю
+          Профіль
         </CardTitle>
         <CardDescription>Редагування даних користувача.</CardDescription>
       </CardHeader>
@@ -171,7 +171,6 @@ export const ProfileForm = () => {
               <AtSign className="absolute top-1/2 left-2 -translate-y-1/2 text-slate-500" />
             </div>
           </Label>
-
           <Label className="flex flex-col gap-2">
             <span className="flex items-center gap-2">
               Новий пароль
@@ -202,10 +201,9 @@ export const ProfileForm = () => {
               )}
             </div>
           </Label>
-
           <Label className="flex flex-col gap-2">
             <span className="flex items-center gap-2">
-              Підтвердіть пароль
+              Підтвердження паролю
               {errors.confirmPassword?.message && (
                 <div className="text-xs text-red-500 dark:text-red-300">
                   {errors.confirmPassword.message}
@@ -227,7 +225,6 @@ export const ProfileForm = () => {
               <Key className="absolute top-1/2 left-2 -translate-y-1/2 text-slate-500" />
             </div>
           </Label>
-
           <Button
             size="lg"
             type="submit"

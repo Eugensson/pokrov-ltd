@@ -7,12 +7,10 @@ import {
   Images,
   Loader,
   MoreHorizontal,
-  TriangleAlert,
 } from "lucide-react";
 import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,25 +39,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Frame } from "@/lib/models/Frame";
+import { Error } from "@/components/error";
 import { Badge } from "@/components/ui/badge";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Frames = () => {
   const router = useRouter();
+  const { toast } = useToast();
   const [value, setValue] = useState("Всі категорії");
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: frames, error } = useSWR(`/api/admin/gallery`, fetcher);
+  const { data: frames, error } = useSWR(`/api/admin/gallery`, (url: string) =>
+    fetch(url).then((res) => res.json())
+  );
 
   const [filteredFrames, setFilteredFrames] = useState<Frame[]>(frames);
 
   const { trigger: deleteFrame } = useSWRMutation(
     `/api/admin/gallery`,
     async (url, { arg }: { arg: { frameId: string } }) => {
-      const toastId = toast.loading("Видалення світлини...");
-
       const res = await fetch(`${url}/${arg.frameId}`, {
         method: "DELETE",
         headers: {
@@ -70,11 +71,11 @@ export const Frames = () => {
       const data = await res.json();
 
       res.ok
-        ? toast.success("Світлину успішно видалено", {
-            id: toastId,
-          })
-        : toast.error(data.message, {
-            id: toastId,
+        ? toast({ title: "Світлину успішно видалено" })
+        : toast({
+            variant: "destructive",
+            title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+            description: data.message,
           });
     }
   );
@@ -89,9 +90,14 @@ export const Frames = () => {
         },
       });
       const data = await res.json();
-      if (!res.ok) return toast.error(data.message);
+      if (!res.ok)
+        return toast({
+          variant: "destructive",
+          title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+          description: data.message,
+        });
 
-      toast.success("Світлина створено успішно");
+      toast({ title: "Світлину успішно додано" });
       router.push(`/gallery/${data.frame._id}`);
     }
   );
@@ -104,25 +110,12 @@ export const Frames = () => {
     setFilteredFrames(filteredFrames || []);
   }, [frames, value]);
 
-  if (error)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, спробуйте ще раз.
-        </h2>
-      </main>
-    );
+  if (error) return <Error href="/gallery" />;
 
-  if (!frames)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <Loader size={40} className="animate-spin" />
-      </main>
-    );
+  if (!frames) return <Loading />;
 
   return (
-    <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+    <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <Tabs defaultValue="Всі категорії">
         <div className="flex items-center justify-between p-1">
           <TabsList className="rounded-md">
@@ -193,7 +186,7 @@ export const Frames = () => {
                       <TableHead className="hidden w-[100px] sm:table-cell">
                         <span className="sr-only">Зображення</span>
                       </TableHead>
-                      <TableHead>Найменування</TableHead>
+                      <TableHead className="w-52">Найменування</TableHead>
                       <TableHead>Опис</TableHead>
                       <TableHead className="hidden md:table-cell">
                         Категорія
@@ -276,6 +269,6 @@ export const Frames = () => {
           </TabsContent>
         </Card>
       </Tabs>
-    </main>
+    </div>
   );
 };

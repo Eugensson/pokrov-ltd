@@ -13,13 +13,9 @@ import {
 import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useSession } from "next-auth/react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
-
-import { formatDate } from "@/lib/utils";
-import { OrderItem } from "@/lib/models/Order";
 
 import {
   Table,
@@ -30,8 +26,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
+import { formatDate } from "@/lib/utils";
+import { Error } from "@/components/error";
+import { OrderItem } from "@/lib/models/Order";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 export default function OrderDetails({
   orderId,
@@ -40,6 +41,8 @@ export default function OrderDetails({
   orderId: string;
   paypalClientId: string;
 }) {
+  const { toast } = useToast();
+
   const { trigger: deliverOrder, isMutating: isDelivering } = useSWRMutation(
     `/api/orders/${orderId}`,
     async (url) => {
@@ -51,8 +54,12 @@ export default function OrderDetails({
       });
       const data = await res.json();
       res.ok
-        ? toast.success("Замовлення доставлено")
-        : toast.error(data.message);
+        ? toast({ title: "Замовлення успішно доставлено" })
+        : toast({
+            variant: "destructive",
+            title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+            description: data.message,
+          });
     }
   );
 
@@ -66,7 +73,13 @@ export default function OrderDetails({
         },
       });
       const data = await res.json();
-      res.ok ? toast.success("Замовлення оплачено") : toast.error(data.message);
+      res.ok
+        ? toast({ title: "Замовлення успішно оплачено" })
+        : toast({
+            variant: "destructive",
+            title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+            description: data.message,
+          });
     }
   );
 
@@ -83,7 +96,7 @@ export default function OrderDetails({
       .then((order) => order.id);
   }
 
-  function onApprovePayPalOrder(data: any) {
+  async function onApprovePayPalOrder(data: any) {
     return fetch(`/api/orders/${orderId}/capture-paypal-order`, {
       method: "POST",
       headers: {
@@ -93,16 +106,20 @@ export default function OrderDetails({
     })
       .then((response) => response.json())
       .then((orderData) => {
-        toast.success("Order paid successfully");
+        toast({
+          title: "Замовлення успішно оплачено",
+          description: orderData.id,
+        });
       });
   }
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data, error } = useSWR(`/api/orders/${orderId}`, fetcher);
+  const { data, error } = useSWR(`/api/orders/${orderId}`, (url: string) =>
+    fetch(url).then((res) => res.json())
+  );
 
-  if (error) return error.message;
+  if (error) return <Error href={`/order/${orderId}`} />;
 
-  if (!data) return "Завантаження...";
+  if (!data) return <Loading />;
 
   const {
     paymentMethod,
@@ -119,18 +136,18 @@ export default function OrderDetails({
   } = data;
 
   return (
-    <div>
+    <>
       <h1 className="flex items-center gap-3 text-2xl my-6">
         <FileText size={28} />
         ID замовлення: {orderId}
       </h1>
       <div className="grid md:grid-cols-4 md:gap-5 my-4">
-        <div className="overflow-x-auto md:col-span-3 space-y-5">
-          <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-5">
-            <h2 className="flex items-center gap-4 font-semibold text-xl">
+        <div className="overflow-x-auto md:col-span-3 space-y-2">
+          <div className="flex flex-col gap-2 bg-primary-foreground rounded-md p-3">
+            <h3 className="flex items-center gap-4 font-semibold text-xl">
               <Truck size={28} />
               Адреса доставки
-            </h2>
+            </h3>
             <p>{shippingAddress.fullName}</p>
             <p>
               {shippingAddress.address}, {shippingAddress.city}
@@ -150,11 +167,11 @@ export default function OrderDetails({
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-5">
-            <h2 className="flex items-center gap-4 font-semibold text-xl">
+          <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-3">
+            <h3 className="flex items-center gap-4 font-semibold text-xl">
               <Banknote size={28} />
               Спосіб оплати
-            </h2>
+            </h3>
             <p>{paymentMethod}</p>
             {isPaid ? (
               <p className="flex items-center gap-2 text-green-500">
@@ -168,11 +185,11 @@ export default function OrderDetails({
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-5">
-            <h2 className="flex items-center gap-4 font-semibold text-xl">
+          <div className="flex flex-col gap-4 bg-primary-foreground rounded-md p-3">
+            <h3 className="flex items-center gap-4 font-semibold text-xl">
               <ShoppingCart size={28} />
               Товари
-            </h2>
+            </h3>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -180,7 +197,7 @@ export default function OrderDetails({
                   <TableHead className="md:text-lg">Найменування</TableHead>
                   <TableHead className="md:text-lg">Кількість</TableHead>
                   <TableHead className="text-right md:text-lg">
-                    Ціна/од., &#8372;
+                    Ціна, &#8372;
                   </TableHead>
                 </TableRow>
               </TableHeader>
@@ -201,7 +218,7 @@ export default function OrderDetails({
                       </Link>
                     </TableCell>
                     <TableCell className="font-medium md:text-lg">
-                      {item.name}({item.color} {item.size})
+                      {item.name}
                     </TableCell>
                     <TableCell>{item.qty}</TableCell>
                     <TableCell className="text-right md:text-lg">
@@ -224,11 +241,11 @@ export default function OrderDetails({
           </div>
         </div>
 
-        <div className="flex flex-col justify-between bg-primary-foreground rounded-md p-5 ">
-          <h2 className="flex items-center gap-4 font-semibold text-lg">
+        <div className="flex flex-col justify-between bg-primary-foreground rounded-md p-5">
+          <h3 className="flex items-center gap-4 font-semibold text-lg">
             <HandCoins size={28} />
             Підсумок замовлення
-          </h2>
+          </h3>
           <ul className="flex flex-col gap-4 ">
             <li>
               <div className="flex justify-between">
@@ -291,6 +308,6 @@ export default function OrderDetails({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

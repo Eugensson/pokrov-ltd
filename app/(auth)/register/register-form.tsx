@@ -66,8 +66,12 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
       });
 
       if (res.ok) {
+        toast({
+          title: "Користувача успішно створено",
+          description: "Обліковий запис користувача успішно створено",
+        });
         return router.push(
-          `/signin?callbackUrl=${callbackUrl}&success=Account has been created`
+          `/login?callbackUrl=${callbackUrl}&success=Account has been created`
         );
       } else {
         const data = await res.json();
@@ -81,8 +85,8 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
 
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong. Please try again.",
-        description: `${error}` || "error",
+        title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+        description: `${error}` || "Помилка",
       });
     }
   };

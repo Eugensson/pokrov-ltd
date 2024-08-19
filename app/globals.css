@@ -98,7 +98,7 @@ h3 {
 h4 {
   @apply text-sm md:text-sm xl:text-base py-1 md:py-2 lg:py-4;
 }
-a,
+
 p {
   @apply text-xs md:text-sm lg:text-base xl:text-lg;
 }

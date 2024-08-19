@@ -3,17 +3,10 @@
 import useSWR from "swr";
 import Link from "next/link";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
-import {
-  Loader,
-  TriangleAlert,
-  UserCheck,
-  UserRoundPen,
-  UserX,
-} from "lucide-react";
 import { ValidationRule, useForm } from "react-hook-form";
+import { Loader, UserCheck, UserRoundPen, UserX } from "lucide-react";
 
 import {
   Card,
@@ -22,18 +15,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatId } from "@/lib/utils";
 import { User } from "@/lib/models/User";
+import { Error } from "@/components/error";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { formatId } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 
 export const CustomerEditForm = ({ userId }: { userId: string }) => {
   const router = useRouter();
+  const { toast } = useToast();
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: user, error } = useSWR(`/api/admin/users/${userId}`, fetcher);
+  const { data: user, error } = useSWR(
+    `/api/admin/users/${userId}`,
+    (url: string) => fetch(url).then((res) => res.json())
+  );
 
   const { trigger: updateUser, isMutating: isUpdating } = useSWRMutation(
     `/api/admin/users/${userId}`,
@@ -46,9 +45,17 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
         body: JSON.stringify(arg),
       });
       const data = await res.json();
-      if (!res.ok) return toast.error(data.message);
+      if (!res.ok)
+        return toast({
+          variant: "destructive",
+          title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+          description: data.message,
+        });
 
-      toast.success("Інформацію про користувача успішно оновлено");
+      toast({
+        title: "Інформацію про користувача успішно оновлено",
+      });
+
       router.push("/customers");
     }
   );
@@ -72,22 +79,9 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
     await updateUser(formData);
   };
 
-  if (error)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, спробуйте ще раз.
-        </h2>
-      </main>
-    );
+  if (error) return <Error href={`/customers/${userId}`} />;
 
-  if (!frames)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <Loader size={40} className="animate-spin" />
-      </main>
-    );
+  if (!user) return <Loading />;
 
   const FormInput = ({
     id,
@@ -120,7 +114,7 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
   );
 
   return (
-    <main className="flex justify-center items-center h-[650px]">
+    <div className="flex justify-center items-center h-[650px]">
       <Card className="w-full max-w-lg p-10">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
@@ -168,6 +162,6 @@ export const CustomerEditForm = ({ userId }: { userId: string }) => {
           </form>
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 };

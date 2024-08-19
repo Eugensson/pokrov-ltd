@@ -18,18 +18,18 @@ export const CartButton = () => {
 
   return (
     <Button variant="outline" className=" rounded-md">
-      <Link href="/cart" className="flex items-center gap-1">
+      <Link href="/cart" className="flex items-center gap-8">
         <ShoppingCart
-          size={20}
+          size={28}
           aria-label="Shopping cart"
-          className="text-slate-500"
+          className="text-zinc-500"
         />
         {mounted && items.length != 0 ? (
-          <Badge variant="outline" className="text-sm text-slate-500">
+          <Badge variant="outline" className="text-sm text-zinc-500">
             {items.reduce((a, c) => a + c.qty, 0)}
           </Badge>
         ) : (
-          <Badge variant="outline" className="text-sm text-slate-500">
+          <Badge variant="outline" className="text-sm text-zinc-500">
             0
           </Badge>
         )}

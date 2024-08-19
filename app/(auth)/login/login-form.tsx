@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { AtSign, Eye, EyeOff, Github, Key, Loader } from "lucide-react";
+import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
+import { AtSign, Eye, EyeOff, Github, Key, Loader } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";

@@ -13,6 +13,16 @@ import {
   BarElement,
   ArcElement,
 } from "chart.js";
+import {
+  ContactRound,
+  HandCoins,
+  ListOrdered,
+  PackageOpen,
+  ShoppingCart,
+  SquareChartGantt,
+  SquarePercent,
+  UsersRound,
+} from "lucide-react";
 import useSWR from "swr";
 import Link from "next/link";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
@@ -20,25 +30,14 @@ import { Bar, Doughnut, Line } from "react-chartjs-2";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils";
+import { Error } from "@/components/error";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
-import {
-  ContactRound,
-  HandCoins,
-  ListOrdered,
-  Loader,
-  PackageOpen,
-  ShoppingCart,
-  SquareChartGantt,
-  SquarePercent,
-  TriangleAlert,
-  UsersRound,
-} from "lucide-react";
 
 ChartJS.register(
   CategoryScale,
@@ -68,22 +67,9 @@ export const Dashboard = () => {
     (url: string) => fetch(url).then((res) => res.json())
   );
 
-  if (error)
-    return (
-      <main className="flex justify-center items-center min-h-[580px]">
-        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, спробуйте ще раз.
-        </h2>
-      </main>
-    );
+  if (error) return <Error href="/dashboard" />;
 
-  if (!summary)
-    return (
-      <main className="flex justify-center items-center h-[580px]">
-        <Loader size={40} className="animate-spin" />
-      </main>
-    );
+  if (!summary) return <Loading />;
 
   const salesData = {
     labels: summary.salesData.map((x: { _id: string }) => x._id),
@@ -144,7 +130,7 @@ export const Dashboard = () => {
   };
 
   const usersData = {
-    labels: summary.usersData.map((x: { _id: string }) => x._id), // 2022/01 2022/03
+    labels: summary.usersData.map((x: { _id: string }) => x._id),
     datasets: [
       {
         label: "Користувачі",
@@ -158,9 +144,9 @@ export const Dashboard = () => {
   };
 
   return (
-    <main className="grid md:grid-cols-2 gap-4 w-full max-w-7xl mx-auto p-2 md:p-5 xl:p-10">
-      <div className="md:col-span-2 grid md:grid-cols-2 xl:grid-cols-4 gap-2 md:gap-5 xl:gap-10">
-        <Card className="shadow-md dark:shadow-slate-500/30">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 xl:gap-8 max-w-[1440px] mx-auto p-1">
+      <div className="md:col-span-2 grid md:grid-cols-2 xl:grid-cols-4 xl:col-span-4 gap-2 xl:gap-8">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
           <CardHeader>
             <CardTitle className="flex justify-between items-center text-xl uppercase">
               Продажі
@@ -178,7 +164,7 @@ export const Dashboard = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="shadow-md dark:shadow-slate-500/30">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
           <CardHeader>
             <CardTitle className="flex justify-between items-center text-xl uppercase">
               Замовлення
@@ -196,7 +182,7 @@ export const Dashboard = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="shadow-md dark:shadow-slate-500/30">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
           <CardHeader>
             <CardTitle className="flex justify-between items-center text-xl uppercase">
               Товари
@@ -214,7 +200,7 @@ export const Dashboard = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="shadow-md dark:shadow-slate-500/30">
+        <Card className="shadow-md dark:shadow-zinc-500/30 max-w-[300px] md:max-w-full">
           <CardHeader>
             <CardTitle className="flex justify-between items-center text-xl uppercase">
               Користувачі
@@ -233,7 +219,7 @@ export const Dashboard = () => {
           </CardFooter>
         </Card>
       </div>
-      <Card className="shadow-md dark:shadow-slate-500/30">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про продажі
@@ -244,7 +230,7 @@ export const Dashboard = () => {
           <Line data={salesData} />
         </CardContent>
       </Card>
-      <Card className="shadow-md dark:shadow-slate-500/30">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про замовлення
@@ -255,7 +241,7 @@ export const Dashboard = () => {
           <Line data={ordersData} />
         </CardContent>
       </Card>
-      <Card className="shadow-md dark:shadow-slate-500/30">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про товари
@@ -266,7 +252,7 @@ export const Dashboard = () => {
           <Doughnut data={productsData} />
         </CardContent>
       </Card>
-      <Card className="shadow-md dark:shadow-slate-500/30">
+      <Card className="shadow-md dark:shadow-slate-500/30 max-w-[300px] md:max-w-full">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-xl uppercase">
             Звіт про користувачів
@@ -277,6 +263,6 @@ export const Dashboard = () => {
           <Bar data={usersData} />
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 };

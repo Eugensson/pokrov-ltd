@@ -1,23 +1,9 @@
 "use client";
 
-import {
-  Loader,
-  RefreshCw,
-  ShoppingCart,
-  TriangleAlert,
-  Info,
-  MoreHorizontal,
-} from "lucide-react";
 import useSWR from "swr";
 import Link from "next/link";
+import { ShoppingCart, Info, MoreHorizontal } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -35,54 +21,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Error } from "@/components/error";
 import { Order } from "@/lib/models/Order";
 import { Badge } from "@/components/ui/badge";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const Orders = () => {
   const { data: orders, error } = useSWR(`/api/admin/orders`, (url: string) =>
     fetch(url).then((res) => res.json())
   );
 
-  if (error)
-    return (
-      <div className="flex flex-col justify-center gap-10 items-center min-h-[580px]">
-        <h2 className="text-xl font-semibold text-destructive dark:text-red-400 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, оновіть сторінку.
-        </h2>
-        <Button type="button" size="lg">
-          <Link href="/orders" className="flex items-center gap-3">
-            <RefreshCw />
-            Оновити
-          </Link>
-        </Button>
-      </div>
-    );
+  if (error) return <Error href="/orders" />;
 
-  if (!orders)
-    return (
-      <div className="flex justify-center items-center min-h-[580px]">
-        <Loader size={40} className="animate-spin" />
-      </div>
-    );
-
-  console.log(orders);
+  if (!orders) return <Loading />;
 
   return (
-    <section>
-      <Card className="grid auto-rows-max lg:col-span-2">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-3 text-2xl mb-4">
-            <ShoppingCart size={28} />
-            Замовлення
-          </CardTitle>
-          <CardDescription className="text-balance max-w-2xl leading-relaxed">
-            інформаційна панель динамічних замовлень для безперервного керування
-            та аналізу.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+    <Card className="grid lg:col-span-2">
+      <CardHeader className="pb-3">
+        <CardTitle className="flex items-center gap-3 text-2xl mb-4">
+          <ShoppingCart size={28} />
+          Замовлення
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ScrollArea className="w-[260px] md:w-[660px] lg:w-[910px] xl:w-full whitespace-nowrap rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -106,7 +71,7 @@ export const Orders = () => {
                       order.isPaid && order.isDelivered ? "" : "bg-accent"
                     )}
                   >
-                    <TableCell>..{order._id.substring(14, 24)}</TableCell>
+                    <TableCell>..{order._id.substring(20, 24)}</TableCell>
                     <TableCell>{order.user?.name || "Deleted user"}</TableCell>
                     <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
                     <TableCell>{order.totalPrice}</TableCell>
@@ -176,8 +141,9 @@ export const Orders = () => {
               )}
             </TableBody>
           </Table>
-        </CardContent>
-      </Card>
-    </section>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </CardContent>
+    </Card>
   );
 };

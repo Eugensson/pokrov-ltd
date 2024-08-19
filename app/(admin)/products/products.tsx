@@ -7,23 +7,14 @@ import {
   Loader,
   MoreHorizontal,
   Package,
-  TriangleAlert,
 } from "lucide-react";
 import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -41,25 +32,30 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatId } from "@/lib/utils";
+import { Error } from "@/components/error";
 import { Badge } from "@/components/ui/badge";
 import { Product } from "@/lib/models/Product";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useToast } from "@/components/ui/use-toast";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Products = () => {
   const router = useRouter();
+  const { toast } = useToast();
   const [value, setValue] = useState("Всі категорії");
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: products, error } = useSWR(`/api/admin/products`, fetcher);
+  const { data: products, error } = useSWR(
+    `/api/admin/products`,
+    (url: string) => fetch(url).then((res) => res.json())
+  );
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
 
   const { trigger: deleteProduct } = useSWRMutation(
     `/api/admin/products`,
     async (url, { arg }: { arg: { productId: string } }) => {
-      const toastId = toast.loading("Видалення товару...");
-
       const res = await fetch(`${url}/${arg.productId}`, {
         method: "DELETE",
         headers: {
@@ -70,11 +66,11 @@ export const Products = () => {
       const data = await res.json();
 
       res.ok
-        ? toast.success("Продукт успішно видалено", {
-            id: toastId,
-          })
-        : toast.error(data.message, {
-            id: toastId,
+        ? toast({ title: "Продукт успішно видалено" })
+        : toast({
+            variant: "destructive",
+            title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+            description: data.message,
           });
     }
   );
@@ -89,9 +85,14 @@ export const Products = () => {
         },
       });
       const data = await res.json();
-      if (!res.ok) return toast.error(data.message);
+      if (!res.ok)
+        return toast({
+          variant: "destructive",
+          title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+          description: data.message,
+        });
 
-      toast.success("Продукт створено успішно");
+      toast({ title: "Продукт успішно створено" });
       router.push(`/products/${data.product._id}`);
     }
   );
@@ -104,67 +105,54 @@ export const Products = () => {
     setFilteredProducts(filteredProducts || []);
   }, [products, value]);
 
-  if (error)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, спробуйте ще раз.
-        </h2>
-      </main>
-    );
+  if (error) return <Error href="/products" />;
 
-  if (!products)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <Loader size={40} className="animate-spin" />
-      </main>
-    );
+  if (!products) return <Loading />;
 
   return (
-    <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-      <Tabs defaultValue="Всі категорії">
-        <div className="flex items-center justify-between p-1">
-          <TabsList className="rounded-md">
+    <div className="grid flex-1 gap-4 p-2 sm:px-6 sm:py-0 md:gap-8">
+      <Tabs defaultValue="Всі категорії" className="md:pl-5">
+        <div className="flex flex-col md:flex-row md:items-center justify-between p-1">
+          <TabsList className="hidden md:flex rounded-md">
             <TabsTrigger
               name="Всі категорії"
               value="Всі категорії"
               className="rounded-md"
               onClick={() => setValue("Всі категорії")}
             >
-              Всі категорії
+              Всі
             </TabsTrigger>
             <TabsTrigger
               value="Накупольні хрести"
               className="rounded-md"
               onClick={() => setValue("Накупольні хрести")}
             >
-              Накупольні хрести
+              Хрести
             </TabsTrigger>
             <TabsTrigger
               value="Декоративні елементи"
               className="rounded-md"
               onClick={() => setValue("Декоративні елементи")}
             >
-              Декоративні елементи
+              Декор
             </TabsTrigger>
             <TabsTrigger
               value="Куполи церковні"
               className="rounded-md"
               onClick={() => setValue("Куполи церковні")}
             >
-              Куполи церковні
+              Куполи
             </TabsTrigger>
             <TabsTrigger
               value="Аркуші із нанесеним покриттям"
               className="rounded-md"
               onClick={() => setValue("Аркуші із нанесеним покриттям")}
             >
-              Аркуші із нанесеним покриттям
+              Аркуші
             </TabsTrigger>
           </TabsList>
           <Button
-            size="lg"
+            variant="ghost"
             className="h-10 gap-3"
             disabled={isCreating}
             onClick={() => createProduct()}
@@ -175,35 +163,26 @@ export const Products = () => {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-2xl">
-              <Package size={28} />
+            <CardTitle className="flex items-center gap-3 p-0">
+              <Package size={20} />
               Товари
             </CardTitle>
-            <CardDescription>
-              Панель керування товарами (додавання, редагування та видалення).
-            </CardDescription>
           </CardHeader>
           <TabsContent value={value}>
             <CardContent>
-              <ScrollArea className="h-[380px] w-full">
+              <ScrollArea className="w-[260px] md:w-[660px] lg:w-[910px] xl:w-full h-[300px] md:h-[400px] lg:h-[450px] whitespace-nowrap rounded-md border">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="hidden w-[100px] sm:table-cell">
+                      <TableHead className="w-[100px]">
                         <span className="sr-only">Зображення</span>
                       </TableHead>
                       <TableHead>ID</TableHead>
                       <TableHead>Найменування</TableHead>
-                      <TableHead>Ціна/од., &#8372;</TableHead>
-                      <TableHead className="hidden md:table-cell">
-                        Категорія
-                      </TableHead>
-                      <TableHead className="hidden md:table-cell">
-                        Кількість
-                      </TableHead>
-                      <TableHead className="hidden md:table-cell">
-                        Рейтинг
-                      </TableHead>
+                      <TableHead>Ціна/од,&#8372;</TableHead>
+                      <TableHead>Категорія</TableHead>
+                      <TableHead>Кількість</TableHead>
+                      <TableHead>Рейтинг</TableHead>
                       <TableHead>
                         <span className="sr-only">Дії</span>
                       </TableHead>
@@ -212,7 +191,7 @@ export const Products = () => {
                   <TableBody>
                     {filteredProducts.map((product: Product) => (
                       <TableRow key={product._id}>
-                        <TableCell className="hidden sm:table-cell">
+                        <TableCell>
                           <Image
                             src={product.image}
                             alt={product.name}
@@ -228,15 +207,9 @@ export const Products = () => {
                           <Badge variant="outline">{product.name}</Badge>
                         </TableCell>
                         <TableCell>{product.price}</TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {product.category}
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {product.countInStock}
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {product.rating}
-                        </TableCell>
+                        <TableCell>{product.category}</TableCell>
+                        <TableCell>{product.countInStock}</TableCell>
+                        <TableCell>{product.rating}</TableCell>
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -285,11 +258,12 @@ export const Products = () => {
                     ))}
                   </TableBody>
                 </Table>
+                <ScrollBar orientation="horizontal" />
               </ScrollArea>
             </CardContent>
           </TabsContent>
         </Card>
       </Tabs>
-    </main>
+    </div>
   );
 };

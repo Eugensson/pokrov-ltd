@@ -41,8 +41,8 @@ export const CartDetails = () => {
   if (!mounted) return <></>;
 
   return (
-    <div>
-      <div className="flex justify-between items-center">
+    <div className="relative h-full flex items-center justify-center">
+      <div className="absolute top-0 left-0 w-full flex justify-between items-center">
         <Breadcrumb className="my-5">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -70,17 +70,17 @@ export const CartDetails = () => {
       </div>
 
       {items.length === 0 ? (
-        <div className="h-full flex flex-col items-center justify-center gap-10 p-10">
-          <span className="flex items-center gap-4 text-4xl font-semibold">
-            <ShoppingCart size={150} className="text-slate-500" />
-            Кошик порожній.
-          </span>
-          <Button size="lg">
+        <div className="flex flex-col items-center justify-center gap-4 p-10">
+          <h3 className="flex items-center gap-4">
+            <ShoppingCart size={20} className="text-zinc-500" />
+            Кошик порожній
+          </h3>
+          <Button size="lg" variant="link">
             <Link href="/catalog">Повернутися до каталогу</Link>
           </Button>
         </div>
       ) : (
-        <ScrollArea className="h-[400px] w-full bg-primary-foreground rounded-md p-4">
+        <ScrollArea className="mt-[75px] h-[400px] w-full bg-primary-foreground rounded-md p-4">
           <Table>
             <TableHeader>
               <TableRow>

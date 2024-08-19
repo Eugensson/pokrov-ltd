@@ -1,7 +1,7 @@
 import { Orders } from "./orders";
 
 export const metadata = {
-  title: "Admin Orders",
+  title: "Адміністрування замовлень || ТОВ Покров",
 };
 
 export default function AdminOrders() {

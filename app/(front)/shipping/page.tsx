@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ShippingForm } from "./shipping-form";
 
 export const metadata: Metadata = {
-  title: "Shipping Address",
+  title: "Адреса доставки || ТОВ Покров",
 };
 
 export default async function ShippingPage() {

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ТОВ НВФ Покров | Галерея робіт",
-  description: "Галерея",
+  title: "Галерея || ТОВ Покров",
+  description: "Галерея світлин продукції ТОВ Покров",
 };
 
 const PoryfolioLayout: React.FC<React.PropsWithChildren> = ({ children }) => {

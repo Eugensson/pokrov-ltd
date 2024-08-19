@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -25,12 +24,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import useCartService from "@/lib/hooks/useCartStore";
 import { CheckoutSteps } from "@/components/checkout-steps";
 
 export const PlaceOrderForm = () => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const {
     paymentMethod,
@@ -64,10 +65,14 @@ export const PlaceOrderForm = () => {
       const data = await res.json();
       if (res.ok) {
         clear();
-        toast.success("Order placed successfully");
+        toast({ title: "Order placed successfully" });
         return router.push(`/order/${data.order._id}`);
       } else {
-        toast.error(data.message);
+        toast({
+          variant: "destructive",
+          title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+          description: data.message,
+        });
       }
     }
   );
@@ -91,7 +96,7 @@ export const PlaceOrderForm = () => {
   if (!mounted) return <></>;
 
   return (
-    <div>
+    <>
       <CheckoutSteps current={4} value={100} />
       <div className="grid md:grid-cols-4 md:gap-5 my-4">
         <div className="overflow-x-auto md:col-span-3 space-y-5">
@@ -231,6 +236,6 @@ export const PlaceOrderForm = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 };

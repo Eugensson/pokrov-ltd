@@ -31,23 +31,6 @@ export default function Register() {
           Реєстрація
         </h1>
         <RegisterForm />
-        <p className="text-center text-[10px] text-muted-foreground">
-          Натискаючи продовжити, Ви погоджуєтеся з нашими{" "}
-          <Link
-            href="/terms"
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Умовами користання ресурсом
-          </Link>{" "}
-          та{" "}
-          <Link
-            href="/privacy"
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Політикою конфіденційності
-          </Link>
-          .
-        </p>
       </div>
     </div>
   );

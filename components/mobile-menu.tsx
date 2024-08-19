@@ -15,8 +15,8 @@ export const MobileMenu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="icon" variant="outline" className="md:hidden">
-          <AlignJustify size={16} />
+        <Button size="icon" variant="outline" className="md:hidden p-2">
+          <AlignJustify size={28} className="text-zinc-500" />
           <span className="sr-only">Toggle Mobile Menu</span>
         </Button>
       </SheetTrigger>

@@ -43,9 +43,9 @@ export const MenuButton = () => {
         <Button
           variant="outline"
           size="icon"
-          className="overflow-hidden rounded-md"
+          className="overflow-hidden rounded-md p-2"
         >
-          <UserRound size={20} aria-label="Avatar" className="text-slate-500" />
+          <UserRound size={28} aria-label="Avatar" className="text-zinc-500" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -58,20 +58,20 @@ export const MenuButton = () => {
             {session.user.isAdmin && (
               <DropdownMenuItem>
                 <Link href="/dashboard" className="flex items-center gap-2">
-                  <LayoutDashboard size={16} />
+                  <LayoutDashboard size={20} />
                   Панель адміна
                 </Link>
               </DropdownMenuItem>
             )}
             <DropdownMenuItem>
               <Link href="/order-history" className="flex items-center gap-2">
-                <History size={16} />
+                <History size={20} />
                 Історія замовлень
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">
               <Link href="/profile" className="flex items-center gap-2">
-                <UserRound size={16} />
+                <UserRound size={20} />
                 Профіль
               </Link>
             </DropdownMenuItem>
@@ -82,7 +82,7 @@ export const MenuButton = () => {
               className="cursor-pointer flex items-center gap-2"
               onClick={() => signIn()}
             >
-              <LogIn size={16} />
+              <LogIn size={20} />
               Вхід/Реєстрація
             </DropdownMenuItem>
           </>
@@ -91,7 +91,7 @@ export const MenuButton = () => {
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className="cursor-pointer">
-            <Monitor className="mr-2 size-4" />
+            <Monitor className="mr-2 size-5" />
             Тема
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
@@ -100,26 +100,26 @@ export const MenuButton = () => {
                 onClick={() => setTheme("system")}
                 className="cursor-pointer"
               >
-                <Monitor className="mr-2 size-4" />
+                <Monitor className="mr-2 size-5" />
                 Системна
-                {theme === "system" && <Check className="ms-2 size-4" />}
+                {theme === "system" && <Check className="ms-2 size-5" />}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("light")}
                 className="cursor-pointer"
               >
-                <Sun className="mr-2 size-4" />
+                <Sun className="mr-2 size-5" />
                 Світла
-                {theme === "light" && <Check className="ms-2 size-4" />}
+                {theme === "light" && <Check className="ms-2 size-5" />}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("dark")}
                 className="cursor-pointer"
               >
-                <Moon className="mr-2 size-4" />
+                <Moon className="mr-2 size-5" />
                 Темна
                 {theme === "dark" && (
-                  <Check className="ms-2 size-4 cursor-pointer" />
+                  <Check className="ms-2 size-5 cursor-pointer" />
                 )}
               </DropdownMenuItem>
             </DropdownMenuSubContent>

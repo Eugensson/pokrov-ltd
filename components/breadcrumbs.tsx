@@ -10,17 +10,19 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { cn } from "@/lib/utils";
 
 interface Props {
   items: {
     label: string;
     path: string;
   }[];
+  className?: string;
 }
 
-export const Breadcrumbs: React.FC<Props> = ({ items }) => {
+export const Breadcrumbs: React.FC<Props> = ({ items, className }) => {
   return (
-    <Breadcrumb className="hidden md:flex">
+    <Breadcrumb className={cn("hidden md:flex", className)}>
       <BreadcrumbList>
         {items.map(({ label, path }, index) => (
           <React.Fragment key={index}>

@@ -2,9 +2,7 @@
 
 import {
   CircleUserRound,
-  Loader,
   MoreHorizontal,
-  TriangleAlert,
   UserPen,
   UsersRound,
   UserX,
@@ -12,8 +10,8 @@ import {
 import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
+
 import {
   Card,
   CardContent,
@@ -39,18 +37,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { formatId } from "@/lib/utils";
 import { User } from "@/lib/models/User";
+import { Error } from "@/components/error";
 import { Badge } from "@/components/ui/badge";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const Customers = () => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: users, error } = useSWR(`/api/admin/users`, fetcher);
+  const { toast } = useToast();
+
+  const { data: users, error } = useSWR(`/api/admin/users`, (url: string) =>
+    fetch(url).then((res) => res.json())
+  );
 
   const { trigger: deleteUser } = useSWRMutation(
     `/api/admin/users`,
     async (url, { arg }: { arg: { userId: string } }) => {
-      const toastId = toast.loading("Deleting user...");
       const res = await fetch(`${url}/${arg.userId}`, {
         method: "DELETE",
         headers: {
@@ -59,31 +62,20 @@ export const Customers = () => {
       });
       const data = await res.json();
       res.ok
-        ? toast.success("User deleted successfully", {
-            id: toastId,
+        ? toast({
+            title: "Користувача успішно видалено",
           })
-        : toast.error(data.message, {
-            id: toastId,
+        : toast({
+            variant: "destructive",
+            title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+            description: data.message,
           });
     }
   );
 
-  if (error)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, спробуйте ще раз.
-        </h2>
-      </main>
-    );
+  if (error) return <Error href="/customers" />;
 
-  if (!users)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <Loader size={40} className="animate-spin" />
-      </main>
-    );
+  if (!users) return <Loading />;
 
   return (
     <Card>
@@ -105,11 +97,9 @@ export const Customers = () => {
                   <span className="sr-only">Зображення</span>
                 </TableHead>
                 <TableHead>ID</TableHead>
-                <TableHead>Повне ім&apos;я користувача</TableHead>
-                <TableHead>Електронна пошта</TableHead>
-                <TableHead className="hidden md:table-cell">
-                  Статус користувача
-                </TableHead>
+                <TableHead>Ім&apos;я</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead className="hidden md:table-cell">Статус</TableHead>
                 <TableHead>
                   <span className="sr-only">Дії</span>
                 </TableHead>

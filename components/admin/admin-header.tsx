@@ -14,7 +14,7 @@ export const AdminHeader = () => {
 
   return (
     <header className="shadow-md dark:shadow-slate-500/30">
-      <div className="container flex justify-between items-center p-2 md:px-4">
+      <div className="flex justify-between items-center p-2 container md:pl-20">
         <AdminMobileMenu />
         <Breadcrumbs items={items} />
         <MenuButton />

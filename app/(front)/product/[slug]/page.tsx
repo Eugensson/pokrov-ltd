@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SquareArrowUpLeft } from "lucide-react";
 
 import { Rating } from "@/components/rating";
 import { convertDocToObj } from "@/lib/utils";
@@ -16,7 +15,7 @@ export async function generateMetadata({
   const product = await productService.getBySlug(params.slug);
 
   if (!product) {
-    return { title: "Product not found" };
+    return { title: "Товар не знайдено" };
   }
 
   return {
@@ -33,17 +32,22 @@ export default async function ProductDetails({
   const product = await productService.getBySlug(params.slug);
 
   if (!product) {
-    return <div>Product not found</div>;
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 h-full">
+        <h3>Товар не знайдено.</h3>
+        <Button size="lg" variant="link">
+          <Link href="/catalog" className="uppercase text-lg">
+            До каталогу
+          </Link>
+        </Button>
+      </div>
+    );
   }
 
   return (
-    <section className="">
-      <Button variant="link" type="button" className="px-0 my-4">
-        <Link
-          href="/catalog"
-          className="flex items-center gap-2 uppercase text-lg"
-        >
-          <SquareArrowUpLeft />
+    <>
+      <Button variant="link" type="button" className="px-0 my-4 mr-auto">
+        <Link href="/catalog" className="uppercase text-lg">
           До каталогу
         </Link>
       </Button>
@@ -104,6 +108,6 @@ export default async function ProductDetails({
           )}
         </div>
       </div>
-    </section>
+    </>
   );
 }

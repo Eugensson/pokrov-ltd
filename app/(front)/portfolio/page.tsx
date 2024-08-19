@@ -6,13 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Portfolio() {
   const frames = await getFramesCategory();
-  if (!frames) return;
 
   return (
-    <div>
+    <>
       <h1 className="text-center pt-0 mb-4">Галерея робіт</h1>
       <ul className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-        {frames.map((frame) => (
+        {frames?.map((frame) => (
           <li key={frame}>
             <Link href={`/portfolio/${frame}`} className="group">
               <Card className="group-hover:shadow-lg group-hover:dark:shadow-slate-500/50">
@@ -49,6 +48,6 @@ export default async function Portfolio() {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import { Frames } from "@/app/(admin)/gallery/frames";
 
 export const metadata = {
-  title: "Admin Products",
+  title: "Адміністрування світлин || ТОВ Покров",
 };
 
 export default function AdminGallery() {

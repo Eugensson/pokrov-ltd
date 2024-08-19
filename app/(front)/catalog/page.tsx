@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  ChevronLeft,
-  ChevronRight,
-  LayoutGrid,
-  List,
-  SquareX,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, SquareX } from "lucide-react";
 
 import {
   Accordion,

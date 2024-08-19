@@ -2,11 +2,11 @@
 
 import useSWR from "swr";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ValidationRule, useForm } from "react-hook-form";
+import { ImageMinus, ImagePlus, Loader, UserRoundPen } from "lucide-react";
 
 import {
   Select,
@@ -16,25 +16,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Frame } from "@/lib/models/Frame";
+import { Error } from "@/components/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ImageMinus,
-  ImagePlus,
-  Loader,
-  TriangleAlert,
-  UserRoundPen,
-} from "lucide-react";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
   const router = useRouter();
+  const { toast } = useToast();
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data: frame, error } = useSWR(
     `/api/admin/gallery/${frameId}`,
-    fetcher
+    (url: string) => fetch(url).then((res) => res.json())
   );
 
   const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -52,9 +48,18 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
         body: JSON.stringify(arg),
       });
       const data = await res.json();
-      if (!res.ok) return toast.error(data.message);
 
-      toast.success("Світлину оновлено успішно");
+      if (!res.ok)
+        return toast({
+          variant: "destructive",
+          title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+          description: data.message,
+        });
+
+      toast({
+        title: "Світлину успішно оновлено",
+      });
+
       router.push("/gallery");
     }
   );
@@ -95,22 +100,9 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
     await updateFrame(formData);
   };
 
-  if (error)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <h2 className="text-xl font-semibold text-red-500 flex items-center gap-3">
-          <TriangleAlert size={40} />
-          Сталася помилка. Будь ласка, спробуйте ще раз.
-        </h2>
-      </main>
-    );
+  if (error) return <Error href={`/gallery/${frameId}`} />;
 
-  if (!frames)
-    return (
-      <main className="flex justify-center items-center h-[650px]">
-        <Loader size={40} className="animate-spin" />
-      </main>
-    );
+  if (!frame) return <Loading />;
 
   const FormInput = ({
     id,
@@ -137,8 +129,6 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
   );
 
   const uploadHandler = async (e: any) => {
-    const toastId = toast.loading("Оновлення зображення...");
-
     try {
       const resSign = await fetch("/api/cloudinary-sign", {
         method: "POST",
@@ -166,18 +156,18 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
 
       setValue("image", data.secure_url);
 
-      toast.success("File uploaded successfully", {
-        id: toastId,
-      });
+      toast({ title: "Файл успішно завантажено" });
     } catch (err: any) {
-      toast.error(err.message, {
-        id: toastId,
+      toast({
+        variant: "destructive",
+        title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+        description: err.message,
       });
     }
   };
 
   return (
-    <section className="flex justify-center items-center h-[580px]">
+    <div className="flex justify-center items-center h-[580px]">
       <Card className="w-full max-w-lg p-10">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
@@ -246,6 +236,6 @@ export const EditGalleryFrameForm = ({ frameId }: { frameId: string }) => {
           </form>
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 };

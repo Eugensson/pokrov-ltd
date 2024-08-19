@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import useSWR from "swr";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import useSWRMutation from "swr/mutation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -30,18 +29,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { formatId } from "@/lib/utils";
+import { Error } from "@/components/error";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Loading } from "@/components/loading";
 import { Product } from "@/lib/models/Product";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 export const EditProductForm = ({ productId }: { productId: string }) => {
   const router = useRouter();
+  const { toast } = useToast();
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data: product, error } = useSWR(
     `/api/admin/products/${productId}`,
-    fetcher
+    (url: string) => fetch(url).then((res) => res.json())
   );
 
   const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -59,9 +61,14 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
         body: JSON.stringify(arg),
       });
       const data = await res.json();
-      if (!res.ok) return toast.error(data.message);
+      if (!res.ok)
+        return toast({
+          variant: "destructive",
+          title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+          description: data.message,
+        });
 
-      toast.success("Product updated successfully");
+      toast({ title: "Відомості про товар успішно оновлено" });
       router.push("/products");
     }
   );
@@ -88,9 +95,6 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
   const formSubmit = async (formData: any) => {
     await updateProduct(formData);
   };
-
-  if (error) return error.message;
-  if (!product) return "Завантаження...";
 
   const FormInput = ({
     id,
@@ -123,7 +127,6 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
   );
 
   const uploadHandler = async (e: any) => {
-    const toastId = toast.loading("Uploading image...");
     try {
       const resSign = await fetch("/api/cloudinary-sign", {
         method: "POST",
@@ -144,18 +147,22 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
       );
       const data = await res.json();
       setValue("image", data.secure_url);
-      toast.success("File uploaded successfully", {
-        id: toastId,
-      });
+      toast({ title: "Файл успішно завантажено" });
     } catch (err: any) {
-      toast.error(err.message, {
-        id: toastId,
+      toast({
+        variant: "destructive",
+        title: "Сталася помилка. Будь ласка, спробуйте ще раз.",
+        description: err.message,
       });
     }
   };
 
+  if (error) return <Error href={`/products/${productId}`} />;
+
+  if (!product) return <Loading />;
+
   return (
-    <section className="flex justify-center items-center h-[580px]">
+    <div className="flex justify-center items-center h-[580px]">
       <Card className="w-full max-w-5xl p-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
@@ -247,6 +254,6 @@ export const EditProductForm = ({ productId }: { productId: string }) => {
           </form>
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 };

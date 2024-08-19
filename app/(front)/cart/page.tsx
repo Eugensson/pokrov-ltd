@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { CartDetails } from "@/app/(front)/cart/cart-details";
 
 export const metadata: Metadata = {
-  title: "Shopping Cart",
+  title: "Кошик || ТОВ Покров",
 };
 
 export default function Cart() {
