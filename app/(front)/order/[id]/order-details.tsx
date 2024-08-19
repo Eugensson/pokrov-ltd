@@ -29,7 +29,6 @@ import {
 import { formatDate } from "@/lib/utils";
 import { Error } from "@/components/error";
 import { OrderItem } from "@/lib/models/Order";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
@@ -119,7 +118,7 @@ export default function OrderDetails({
 
   if (error) return <Error href={`/order/${orderId}`} />;
 
-  if (!data) return <Loading />;
+  if (!data) return <Loader size={40} className="animate-spin mx-auto mt-48" />;
 
   const {
     paymentMethod,

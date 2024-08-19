@@ -274,8 +274,7 @@ const data = {
   frames: [
     {
       title: "Купол церковний 1",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -283,8 +282,7 @@ const data = {
     },
     {
       title: "Купол церковний 2",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -292,8 +290,7 @@ const data = {
     },
     {
       title: "Купол церковний 3",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -301,8 +298,7 @@ const data = {
     },
     {
       title: "Купол церковний 4",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -310,8 +306,7 @@ const data = {
     },
     {
       title: "Купол церковний 5",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -319,8 +314,7 @@ const data = {
     },
     {
       title: "Купол церковний 6",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -328,8 +322,7 @@ const data = {
     },
     {
       title: "Купол церковний 7",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -337,8 +330,7 @@ const data = {
     },
     {
       title: "Купол церковний 8",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -346,8 +338,7 @@ const data = {
     },
     {
       title: "Купол церковний 9",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Куполи церковні",
       cat: "domes",
       image:
@@ -355,8 +346,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 1",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -364,8 +354,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 2",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -373,8 +362,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 3",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -382,8 +370,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 4",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -391,8 +378,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 5",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -400,8 +386,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 6",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -409,8 +394,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 7",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -418,8 +402,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 8",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -427,8 +410,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 9",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -436,8 +418,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 10",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -445,8 +426,7 @@ const data = {
     },
     {
       title: "Хрест накупольний 11",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Накупольні хрести",
       cat: "cross",
       image:
@@ -454,8 +434,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 1",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -463,8 +442,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 2",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -472,8 +450,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 3",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -481,8 +458,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 4",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -490,8 +466,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 5",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -499,8 +474,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 6",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -508,8 +482,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 7",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -517,8 +490,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 8",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -526,8 +498,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 9",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -535,8 +506,7 @@ const data = {
     },
     {
       title: "Декоративні елементи 10",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Декоративні елементи",
       cat: "decor",
       image:
@@ -544,8 +514,7 @@ const data = {
     },
     {
       title: "Аркуші з нанесеним покриттям 1",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Аркуші із нанесеним покриттям",
       cat: "sheets",
       image:
@@ -553,8 +522,7 @@ const data = {
     },
     {
       title: "Аркуші з нанесеним покриттям 2",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Аркуші із нанесеним покриттям",
       cat: "sheets",
       image:
@@ -562,8 +530,7 @@ const data = {
     },
     {
       title: "Аркуші з нанесеним покриттям 3",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Аркуші із нанесеним покриттям",
       cat: "sheets",
       image:
@@ -571,8 +538,7 @@ const data = {
     },
     {
       title: "Аркуші з нанесеним покриттям 4",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deleniti nihil nemo qui cupiditate explicabo, libero assumenda.",
+      description: "Lorem ipsum dolor sit amet consectetur.",
       category: "Аркуші із нанесеним покриттям",
       cat: "sheets",
       image:

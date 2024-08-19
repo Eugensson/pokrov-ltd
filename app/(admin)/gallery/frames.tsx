@@ -43,7 +43,6 @@ import { Error } from "@/components/error";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Frames = () => {
@@ -125,35 +124,35 @@ export const Frames = () => {
               className="rounded-md"
               onClick={() => setValue("Всі категорії")}
             >
-              Всі категорії
+              Всі
             </TabsTrigger>
             <TabsTrigger
               value="Накупольні хрести"
               className="rounded-md"
               onClick={() => setValue("Накупольні хрести")}
             >
-              Накупольні хрести
+              Хрести
             </TabsTrigger>
             <TabsTrigger
               value="Декоративні елементи"
               className="rounded-md"
               onClick={() => setValue("Декоративні елементи")}
             >
-              Декоративні елементи
+              Декор
             </TabsTrigger>
             <TabsTrigger
               value="Куполи церковні"
               className="rounded-md"
               onClick={() => setValue("Куполи церковні")}
             >
-              Куполи церковні
+              Куполи
             </TabsTrigger>
             <TabsTrigger
               value="Аркуші із нанесеним покриттям"
               className="rounded-md"
               onClick={() => setValue("Аркуші із нанесеним покриттям")}
             >
-              Аркуші із нанесеним покриттям
+              Аркуші
             </TabsTrigger>
           </TabsList>
           <Button
@@ -169,92 +168,90 @@ export const Frames = () => {
         <Card>
           <TabsContent value={value}>
             <CardContent>
-              <ScrollArea className="h-[380px] w-full">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="hidden w-[100px] sm:table-cell">
-                        <span className="sr-only">Зображення</span>
-                      </TableHead>
-                      <TableHead className="w-52">Найменування</TableHead>
-                      <TableHead>Опис</TableHead>
-                      <TableHead className="hidden md:table-cell">
-                        Категорія
-                      </TableHead>
-                      <TableHead>
-                        <span className="sr-only">Дії</span>
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredFrames.map((frame: Frame) => (
-                      <TableRow key={frame._id}>
-                        <TableCell className="hidden sm:table-cell">
-                          <Image
-                            src={frame.image}
-                            alt={frame.title || "Зображення продукції"}
-                            className="aspect-square rounded-md object-cover"
-                            width={64}
-                            height={64}
-                          />
-                        </TableCell>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="hidden w-[100px] sm:table-cell">
+                      <span className="sr-only">Зображення</span>
+                    </TableHead>
+                    <TableHead className="w-52">Найменування</TableHead>
+                    <TableHead>Опис</TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Категорія
+                    </TableHead>
+                    <TableHead>
+                      <span className="sr-only">Дії</span>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredFrames.map((frame: Frame) => (
+                    <TableRow key={frame._id}>
+                      <TableCell className="hidden sm:table-cell">
+                        <Image
+                          src={frame.image}
+                          alt={frame.title || "Зображення продукції"}
+                          className="aspect-square rounded-md object-cover"
+                          width={64}
+                          height={64}
+                        />
+                      </TableCell>
 
-                        <TableCell>
-                          <Badge variant="outline">{frame.title}</Badge>
-                        </TableCell>
-                        <TableCell>{frame.description}</TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {frame.category}
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Дії</DropdownMenuLabel>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem>
-                                <Button type="button" variant="link">
-                                  <Link
-                                    href={`/gallery/${frame._id}`}
-                                    className="flex items-center gap-3"
-                                  >
-                                    <FilePenLine />
-                                    Редагувати
-                                  </Link>
-                                </Button>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <Button
-                                  onClick={() =>
-                                    deleteFrame({
-                                      frameId: frame._id!,
-                                    })
-                                  }
-                                  type="button"
-                                  variant="link"
+                      <TableCell>
+                        <Badge variant="outline">{frame.title}</Badge>
+                      </TableCell>
+                      <TableCell>{frame.description}</TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {frame.category}
+                      </TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              aria-haspopup="true"
+                              size="icon"
+                              variant="ghost"
+                            >
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Дії</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                              <Button type="button" variant="link">
+                                <Link
+                                  href={`/gallery/${frame._id}`}
                                   className="flex items-center gap-3"
                                 >
-                                  <FileX2 />
-                                  Видалити
-                                </Button>
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </ScrollArea>
+                                  <FilePenLine />
+                                  Редагувати
+                                </Link>
+                              </Button>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Button
+                                onClick={() =>
+                                  deleteFrame({
+                                    frameId: frame._id!,
+                                  })
+                                }
+                                type="button"
+                                variant="link"
+                                className="flex items-center gap-3"
+                              >
+                                <FileX2 />
+                                Видалити
+                              </Button>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </CardContent>
           </TabsContent>
         </Card>

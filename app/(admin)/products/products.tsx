@@ -6,7 +6,6 @@ import {
   FileX2,
   Loader,
   MoreHorizontal,
-  Package,
 } from "lucide-react";
 import useSWR from "swr";
 import Link from "next/link";
@@ -37,10 +36,8 @@ import { Badge } from "@/components/ui/badge";
 import { Product } from "@/lib/models/Product";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollAriaWrapper } from "@/components/admin/scroll-aria-wrapper";
 
 export const Products = () => {
   const router = useRouter();
@@ -161,101 +158,99 @@ export const Products = () => {
           Додати
         </Button>
       </div>
-      <ScrollAriaWrapper>
-        <Card>
-          <TabsContent value={value}>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[100px]">
-                      <span className="sr-only">Зображення</span>
-                    </TableHead>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Найменування</TableHead>
-                    <TableHead>Ціна/од,&#8372;</TableHead>
-                    <TableHead>Категорія</TableHead>
-                    <TableHead>Кількість</TableHead>
-                    <TableHead>Рейтинг</TableHead>
-                    <TableHead>
-                      <span className="sr-only">Дії</span>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredProducts.map((product: Product) => (
-                    <TableRow key={product._id}>
-                      <TableCell>
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          className="aspect-square rounded-md object-cover"
-                          width={64}
-                          height={64}
-                        />
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        {formatId(product._id!)}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{product.name}</Badge>
-                      </TableCell>
-                      <TableCell>{product.price}</TableCell>
-                      <TableCell>{product.category}</TableCell>
-                      <TableCell>{product.countInStock}</TableCell>
-                      <TableCell>{product.rating}</TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              aria-haspopup="true"
-                              size="icon"
-                              variant="ghost"
-                            >
-                              <MoreHorizontal className="h-4 w-4" />
-                              <span className="sr-only">Toggle menu</span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Дії</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                              <Button type="button" variant="link">
-                                <Link
-                                  href={`/products/${product._id}`}
-                                  className="flex items-center gap-3"
-                                >
-                                  <FilePenLine />
-                                  Редагувати
-                                </Link>
-                              </Button>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <Button
-                                onClick={() =>
-                                  deleteProduct({
-                                    productId: product._id!,
-                                  })
-                                }
-                                type="button"
-                                variant="link"
+      <Card>
+        <TabsContent value={value}>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">
+                    <span className="sr-only">Зображення</span>
+                  </TableHead>
+                  <TableHead>ID</TableHead>
+                  <TableHead>Найменування</TableHead>
+                  <TableHead>Ціна/од,&#8372;</TableHead>
+                  <TableHead>Категорія</TableHead>
+                  <TableHead>Кількість</TableHead>
+                  <TableHead>Рейтинг</TableHead>
+                  <TableHead>
+                    <span className="sr-only">Дії</span>
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredProducts.map((product: Product) => (
+                  <TableRow key={product._id}>
+                    <TableCell>
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        className="aspect-square rounded-md object-cover"
+                        width={64}
+                        height={64}
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {formatId(product._id!)}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline">{product.name}</Badge>
+                    </TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>{product.category}</TableCell>
+                    <TableCell>{product.countInStock}</TableCell>
+                    <TableCell>{product.rating}</TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            aria-haspopup="true"
+                            size="icon"
+                            variant="ghost"
+                          >
+                            <MoreHorizontal className="h-4 w-4" />
+                            <span className="sr-only">Toggle menu</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Дії</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem>
+                            <Button type="button" variant="link">
+                              <Link
+                                href={`/products/${product._id}`}
                                 className="flex items-center gap-3"
                               >
-                                <FileX2 />
-                                Видалити
-                              </Button>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </TabsContent>
-        </Card>
-      </ScrollAriaWrapper>
+                                <FilePenLine />
+                                Редагувати
+                              </Link>
+                            </Button>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Button
+                              onClick={() =>
+                                deleteProduct({
+                                  productId: product._id!,
+                                })
+                              }
+                              type="button"
+                              variant="link"
+                              className="flex items-center gap-3"
+                            >
+                              <FileX2 />
+                              Видалити
+                            </Button>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </TabsContent>
+      </Card>
     </Tabs>
   );
 };
